@@ -1,0 +1,19 @@
+{
+  "@type": "oa:Annotation",
+  "@id": "http://localhost:4000/img/derivatives/iiif/annotation/obj12_06.json",
+  "motivation": "sc:painting",
+  "resource": {
+    "@id": "http://localhost:4000/img/derivatives/iiif/images/obj12_06/full/full/0/default.jpg",
+    "@type": "dcterms:Image",
+    "format": "image/jpeg",
+    "service": {
+      "@context": "http://iiif.io/api/image/2/context.json",
+      "@id": "http://localhost:4000/img/derivatives/iiif/images/obj12_06",
+      "profile": "http://iiif.io/api/image/2/level0.json"
+    },
+    "width": 5354,
+    "height": 7500
+  },
+  "on": "http://localhost:4000/img/derivatives/iiif/canvas/obj12_06.json",
+  "@context": "http://iiif.io/api/presentation/2/context.json"
+}
