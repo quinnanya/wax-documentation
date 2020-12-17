@@ -131,8 +131,8 @@ menu:
     sub:
       - label: 'About the Project'
         link: '/about/'
-      - label: 'Documentation'
-        link: 'https://minicomp.github.io/wiki/wax/'
+      - label: 'About Jan Brueghel'
+        link: '/brueghel/'
       - label: 'Credits'
         link: '/credits/'
   - label: 'Browse'
@@ -143,8 +143,6 @@ menu:
         link: '/browse-genres/'
       - label: 'By location'
         link: '/browse-locations/'
-  - label: 'Browse'
-    link: '/browse-objects/'
   - label: 'Search'
     link: '/search/'
 
