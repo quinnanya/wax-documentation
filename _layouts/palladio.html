@@ -1,0 +1,72 @@
+---
+layout: default
+---
+
+<meta charset="utf-8">
+<link type="text/css" href="/assets/palladio/palladio.css" rel="stylesheet" />
+<link type="text/css" href="/assets/palladio/palladio-timeline-component.css" rel="stylesheet" />
+<link type="text/css" href="/assets/palladio/palladio-facet-component.css" rel="stylesheet" />
+<link type="text/css" href="/assets/palladio/palladio-timespan-component.css" rel="stylesheet" />
+<link type="text/css" href="/assets/palladio/palladio-graph-component.css" rel="stylesheet" />
+<link type="text/css" href="/assets/palladio/palladio-map-component.css" rel="stylesheet" />
+<link type="text/css" href="/assets/palladio/palladio-table-component.css" rel="stylesheet" />
+<link type="text/css" href="/assets/palladio/palladio-cards-component.css" rel="stylesheet" />
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+<script src="/assets/palladio/palladio.js"></script>
+<script src="/assets/palladio/palladio-timeline-component.min.js"></script>
+<script src="/assets/palladio/palladio-facet-component.min.js"></script>
+<script src="/assets/palladio/palladio-timespan-component.min.js"></script>
+<script src="/assets/palladio/palladio-graph-component.min.js"></script>
+<script src="/assets/palladio/palladio-map-component.min.js"></script>
+<script src="/assets/palladio/palladio-table-component.min.js"></script>
+<script src="/assets/palladio/palladio-cards-component.js"></script>
+<div id="mapView-id-here"></div>
+<div id="graphView-id-here"></div>
+<div id="tableView-id-here"></div>
+<div id="listView-id-here"></div><!-- Actually the card view -->
+<div id="timeline-id-here"></div>
+<div id="timespan-id-here"></div>
+<div id="facet-id-here"></div>
+<script>
+var components = startPalladio(['palladioTimelineComponent', 'palladioFacetComponent', 'palladioTimespanComponent', 'palladioGraphComponent', 'palladioMapComponent', 'palladioTableComponent', 'palladioCardsComponent']);
+components.loadData('/assets/palladio/palladio-save-files/brueghel-network.palladio.1.2.9.json', function() {
+      components.promiseAdd('map', '#mapView-id-here', {
+        height: "300px",
+        showSettings: false
+      }).then(function(opts) {
+        opts.importState({"tileSets":[{"url":null,"mbId":"cesta.hd9ak6ie","enabled":true,"description":"Land"}],"layers":[{"aggDescription":"Number of Untitled","aggregateKey":null,"aggregationType":"COUNT","color":"#6085bd","countBy":"IU Archives Number","description":"Geocoordinates","enabled":true,"layerType":"data","descriptiveDimKey":"IU Archives Number","mapping":{"sourceCoordinatesKey":"Geocoordinates","sourceCoordinatesType":null,"sourceCoordinatesDescription":"Geocoordinates","destinationCoordinatesKey":null,"destinationCoordinatesType":null,"destinationCoordinatesDescription":null},"showLinks":false,"type":"points"}]});
+      });
+      components.promiseAdd('graph', '#graphView-id-here', {
+        height: "300px",
+        showSettings: false
+      }).then(function(opts) {
+        opts.source(components.dimensionFromKey("Genre 1"));
+        opts.target(components.dimensionFromKey("Genre 2"));
+        opts.nodeSize(true);
+      });
+      components.promiseAdd('table', '#tableView-id-here', {
+        height: "300px",
+        showSettings: false,
+        row: components.dimensionFromKey("IU Archives Number"),
+        dimensions: components
+          .dimensionsFromKeys(["Description from Slide Mount","Description from Notebook","Topical Subject Headings 1"])
+      });
+      components.promiseAdd('cards', '#listView-id-here', {
+        height: "300px",
+        showSettings: false,
+        titleDim: components.dimensionFromKey("Description from Notebook"),
+        subtitleDim: components.dimensionFromKey("Description from Slide Mount"),
+        textDim: components.dimensionFromKey("Image Note"),
+        linkDim: components.dimensionFromKey("PURL"),
+        imgUrlDim: components.dimensionFromKey("Image URL"),
+        sortDim: components.dimensionFromKey(undefined)
+      });
+});
+</script>
+
+
+{% unless page.show_title == false %}
+  <h2 class='page-title'>{{ page.title }}</h2>
+{% endunless %}
+
+{{ content }}

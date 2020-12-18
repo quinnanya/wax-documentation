@@ -114,6 +114,7 @@ GEM
 
 PLATFORMS
   ruby
+  universal-darwin-19
 
 DEPENDENCIES
   html-proofer (~> 3.10)
@@ -123,4 +124,4 @@ DEPENDENCIES
   wax_theme!
 
 BUNDLED WITH
-   2.1.4
+   2.2.1
