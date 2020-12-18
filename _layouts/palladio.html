@@ -1,15 +1,17 @@
 ---
 layout: default
 ---
-<script type="module" src="https://cdn.jsdelivr.net/gh/simonwiles/palladio-webcomponents@6ff04db/palladio-map-webcomponent.js"></script>
-
+  <script type="module" src="/assets/palladio2/palladio-map-webcomponent.js"></script>
+  <script type="module" src="/assets/palladio2/palladio-graph-webcomponent.js"></script>
+  
+  
 {% unless page.show_title == false %}
   <h2 class='page-title'>{{ page.title }}</h2>
 {% endunless %}
 
 
-<palladio-map-component project-url="/assets/palladio/palladio-save-files/Cushman_500.palladio.1.2.9.json"></palladio-map-component>
-
+  <palladio-map-component project-url="/assets/palladio2/Cushman_500.palladio.1.2.9.json"></palladio-map-component>
+  <palladio-graph-component project-url="/assets/palladio2/Cushman_500.palladio.1.2.9.json"></palladio-graph-component>
 
 
 
