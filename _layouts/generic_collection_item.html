@@ -14,6 +14,7 @@ layout: default
   {% assign viewer = layout.image_viewer %}
 {% endif %}
 
+
 {% if viewer %}
   <div class='item-view'>
     <span class='pagination-link' id='prevlink'></span>
@@ -27,6 +28,7 @@ layout: default
   {% unless layout.pagination == false %}{% include item_pagination.html %}{% endunless %}
 {% endif %}
 
+
 {% comment %}
   The block below controls the item metadata table
 {% endcomment %}
@@ -39,3 +41,4 @@ layout: default
 {% if metadata.size %}
   {% include item_metadata.html meta=metadata %}
 {% endif %}
+
