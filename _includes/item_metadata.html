@@ -34,4 +34,10 @@
 <a href="/tags/{{ tag | slugify: 'pretty' }}/">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
 {% endfor %}
 </dd>
+{% if page.biblio.size %}
+<dt>Bibliography</dt>
+<dd>{{page.biblio}}</dd>
+{% endif %}
+
+
 </dl>
