@@ -36,7 +36,10 @@
 </dd>
 {% if page.biblio.size %}
 <dt>Bibliography</dt>
-<dd>{{page.biblio}}</dd>
+{% capture biblio_text %}
+{{page.biblio}}
+{% endcapture %}
+<dd>{% include biblio_render.html content=biblio_text %}</dd>
 {% endif %}
 
 
