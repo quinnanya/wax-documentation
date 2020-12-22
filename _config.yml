@@ -71,6 +71,10 @@ collections:
       source: 'brueghel.csv' # path to the metadata file within `_data`
     images:
       source: 'raw_images/brueghel' # path to the directory of images within `_data`
+  tags:
+    output: true
+    layout: 'tagpage'
+    sort_by: tag
 
 # --------------------------------------------------------------
 # SEARCH INDEX SETTINGS
@@ -118,6 +122,7 @@ search:
           - bibliography
           - exhibition_history
           - copies_and_variants
+          - biblio
 
 # --------------------------------------------------------------
 # SITE MENU SETTINGS
@@ -165,6 +170,7 @@ footer:
 plugins:
 - jekyll/tagging
 
-tag_page_layout: tag_page
-tag_page_dir: tag
-# FIN
+scholar:
+  source: _bibliography
+  bibliography: 'references.bib'
+  style: modern-language-association

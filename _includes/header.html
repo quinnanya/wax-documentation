@@ -1,3 +1,7 @@
+{% if site.tags != "" %}
+  {% include collecttags.html %}
+{% endif %}
+
 <nav id='wax-header' class='navbar navbar-expand-lg navbar-light'>
  <div class='wax-inline-container'>
     <a class='navbar-brand' href="{{ '/' | absolute_url }}" title='Home'>

@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<div class="post">
+<h1>Tag: {{ page.tag }}</h1>
+<ul>
+{% for p in site.brueghel %}
+   {{p.title}}
+   {% if p.tags contains page.tag %}
+     <li>[{{ p.title }}]({{ p.url | absolute_url }})</li>
+   {% endif %}
+{% endfor %}
+</ul>
+</div>
+<hr>
