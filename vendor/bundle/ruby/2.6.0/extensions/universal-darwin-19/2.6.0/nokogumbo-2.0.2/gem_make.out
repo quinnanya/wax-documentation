@@ -1,0 +1,43 @@
+current directory: /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/nokogumbo-2.0.2/ext/nokogumbo
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/bin/ruby -I /System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0 -r ./siteconf20210114-94829-v62vf3.rb extconf.rb
+checking for libxml/tree.h in /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.9/ports/x86_64-apple-darwin19/libxml2/2.9.10/include/libxml2... yes
+checking for nokogiri.h in /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.9/ext/nokogiri... yes
+creating Makefile
+
+current directory: /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/nokogumbo-2.0.2/ext/nokogumbo
+make "DESTDIR=" clean
+
+current directory: /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/nokogumbo-2.0.2/ext/nokogumbo
+make "DESTDIR="
+compiling nokogumbo.c
+In file included from nokogumbo.c:53:
+/Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.9/ext/nokogiri/nokogiri.h:13:9: warning: '_GNU_SOURCE' macro redefined [-Wmacro-redefined]
+#define _GNU_SOURCE
+        ^
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/universal-darwin19/ruby/config.h:16:9: note: previous definition is here
+#define _GNU_SOURCE 1
+        ^
+1 warning generated.
+compiling ./../../gumbo-parser/src/string_buffer.c
+compiling ./../../gumbo-parser/src/svg_attrs.c
+compiling ./../../gumbo-parser/src/ascii.c
+compiling ./../../gumbo-parser/src/util.c
+compiling ./../../gumbo-parser/src/svg_tags.c
+compiling ./../../gumbo-parser/src/vector.c
+compiling ./../../gumbo-parser/src/attribute.c
+compiling ./../../gumbo-parser/src/token_buffer.c
+compiling ./../../gumbo-parser/src/char_ref.c
+compiling ./../../gumbo-parser/src/utf8.c
+compiling ./../../gumbo-parser/src/error.c
+compiling ./../../gumbo-parser/src/tag.c
+compiling ./../../gumbo-parser/src/parser.c
+compiling ./../../gumbo-parser/src/foreign_attrs.c
+compiling ./../../gumbo-parser/src/tokenizer.c
+compiling ./../../gumbo-parser/src/string_piece.c
+compiling ./../../gumbo-parser/src/tag_lookup.c
+linking shared-object nokogumbo/nokogumbo.bundle
+ld: warning: directory not found for option '-L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.Internal.sdk/usr/local/lib'
+
+current directory: /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/nokogumbo-2.0.2/ext/nokogumbo
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 nokogumbo.bundle ./.gem.20210114-94829-8j2do0/nokogumbo

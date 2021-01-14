@@ -2,14 +2,18 @@
 layout: default
 ---
 <div class="post">
-<h1>Tag: {{ page.tag }}</h1>
+<h1>{{ page.tag }}</h1>
 <ul>
 {% for p in site.brueghel %}
-   {{p.title}}
    {% if p.tags contains page.tag %}
-     <li>[{{ p.title }}]({{ p.url | absolute_url }})</li>
+   <a href="{{ p.url | absolute_url }}"><img src="/img/derivatives/simple/{{p.pid}}/thumbnail.jpg" /></a>
+     <!--<li>[{{ p.title }}]({{ p.url | absolute_url }})</li>-->
    {% endif %}
 {% endfor %}
 </ul>
+
+
+
+
 </div>
 <hr>

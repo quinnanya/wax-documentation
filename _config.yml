@@ -74,7 +74,10 @@ collections:
   tags:
     output: true
     layout: 'tagpage'
-    sort_by: tag
+
+  genres:
+    output: true
+    layout: 'genrepage'
 
 # --------------------------------------------------------------
 # SEARCH INDEX SETTINGS

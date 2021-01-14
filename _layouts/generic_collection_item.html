@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+<script type="module" src="https://cdn.jsdelivr.net/gh/simonwiles/palladio-webcomponents@4389508a/palladio-map-webcomponent.js"></script>
 
 {% comment %}
   The block below controls the image viewer
@@ -39,3 +40,5 @@ layout: default
 {% if metadata.size %}
   {% include item_metadata.html meta=metadata %}
 {% endif %}
+
+<palladio-map-component project-url="/assets/palladio/palladio-save-files/{{page.pid}}.palladio.1.2.9.json" height="800px"></palladio-map-component>

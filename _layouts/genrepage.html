@@ -1,0 +1,19 @@
+---
+layout: default
+---
+<div class="post">
+<h1>{{ page.genre }}</h1>
+<ul>
+{% for p in site.brueghel %}
+   {% if p.genre contains page.genre %}
+   <a href="{{ p.url | absolute_url }}"><img src="/img/derivatives/simple/{{p.pid}}/thumbnail.jpg" /></a>
+     <!--<li>[{{ p.title }}]({{ p.url | absolute_url }})</li>-->
+   {% endif %}
+{% endfor %}
+</ul>
+
+
+
+
+</div>
+<hr>
