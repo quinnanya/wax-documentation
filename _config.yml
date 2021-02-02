@@ -71,6 +71,13 @@ collections:
       source: 'brueghel.csv' # path to the metadata file within `_data`
     images:
       source: 'raw_images/brueghel' # path to the directory of images within `_data`
+  pieterbrueghel: # name of collection
+    output: true # makes sure pages are output as html files
+    layout: 'pieterbrueghel_item' # the layout for the pages to use
+    metadata:
+      source: 'pieterbrueghel.csv' # path to the metadata file within `_data`
+    images:
+      source: 'raw_images/brueghel' # path to the directory of images within `_data`
   tags:
     output: true
     layout: 'tagpage'
