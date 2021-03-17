@@ -85,6 +85,15 @@ collections:
   genres:
     output: true
     layout: 'genrepage'
+  countries:
+    output: true
+    layout: 'countrypage'
+  cities:
+    output: true
+    layout: 'citypage'
+  people:
+    output: true
+    layout: 'peoplepage'
 
 # --------------------------------------------------------------
 # SEARCH INDEX SETTINGS

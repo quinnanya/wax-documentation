@@ -1,0 +1,16 @@
+current directory: /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/eventmachine-1.2.7/ext/fastfilereader
+/Users/qad/.rbenv/versions/2.6.0/bin/ruby -I /Users/qad/.rbenv/versions/2.6.0/lib/ruby/2.6.0 -r ./siteconf20210225-34413-xuu88w.rb extconf.rb
+creating Makefile
+
+current directory: /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make "DESTDIR=" clean
+
+current directory: /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make "DESTDIR="
+compiling mapper.cpp
+compiling rubymain.cpp
+linking shared-object fastfilereaderext.bundle
+
+current directory: /Users/qad/Documents/GitHub/wax-documentation/vendor/bundle/ruby/2.6.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 fastfilereaderext.bundle ./.gem.20210225-34413-id3s6r
