@@ -2,7 +2,7 @@
 layout: personpage
 title: "Jacob de Backer (ca. 1560-1590/91)"
 tag: debacker
-image: '/img/debacker.jpg'
+image: '../../img/debacker.jpg'
 ---
 
 <p>Very little is known of Flemish painter Jacob de Backer. With no set birthdate or death date, de Backer is thought to have lived from around 1555 to 1585. He is believed to have lived all of his life in Antwerp. Flemish biographer Karel van Mander wrote that de Backer was born to a painter who abandoned him as a child. Van Mander then describes that he worked for a large portion of his life in the studio of painter and art dealer Antonio van Palermo until moving to the workshop of Hendrick van Steenwijck the Elder. Van Mander even hypothesizes that it was the overwork de Backer experienced while under van Palermo that led to his premature death.</p>

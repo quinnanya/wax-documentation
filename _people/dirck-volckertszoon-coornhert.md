@@ -2,7 +2,7 @@
 layout: personpage
 title: "Dirck Volckertszoon Coornhert"
 tag: dirck-volckertszoon-coornhert
-image: '/img/dirck-volckertszoon-coornhert.jpg'
+image: '../../img/dirck-volckertszoon-coornhert.jpg'
 ---
 
 <p>Dirck Volckertszoon Coornhert was born in 1522 in Amsterdam. In 1539, he married Cornelia Symons despite the protests of his parents due to her age, lack of means, and the reputation of her sister as the mistress of count Reinoud III of Brederode according to Henk Bonger. Coornhert and his wife then moved to Haarlem, and Coornhert was soon employed by Brederode at the Batestein castle as a steward. His time at Batestein importantly affected his spiritual development as the court was quite anti-Catholic, and it was here that Coornhert first encountered the works of reformers such as Luther and Calvin.<br />

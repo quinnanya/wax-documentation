@@ -2,7 +2,7 @@
 layout: personpage
 title: "Pieter Coecke van Aelst"
 tag: pieter-coecke-van-aelst
-image: '/img/pieter-coecke-van-aelst.jpg'
+image: '../../img/pieter-coecke-van-aelst.jpg'
 ---
 
 <p>While few works that bear his signature remain, Pieter Coecke van Aelst (1502 or 1507 – 1550) left a significant impression on the art of Northern Europe. Regarded by contemporaries as a polymath and purveyor of intellectual and artistic advancements, the painter, sculptor, and designer of woodcuts, tapestries and stained glass was credited as one of the first to bring to the North the ideals of the Italian Renaissance.<br />

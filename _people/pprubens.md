@@ -2,7 +2,7 @@
 layout: personpage
 title: "Peter Paul Rubens (1577-1632)"
 tag: pprubens
-image: '/img/pprubens.jpg'
+image: '../../img/pprubens.jpg'
 ---
 
 <p>Peter Paul Rubens was born in Siegen, Germany in 1577 to Jan Rubens, a Protestant lawyer and alderman, and Maria Pijpelinckx. In 1568 while serving as her secretary, Jan had an adulterous affair with Anna of Saxony, Princess of Orange. The family was exiled from Antwerp to Westphalia where Peter Paul was born roughly a decade later. At the age of twelve, after the death of his father, Rubens and his family moved the family back to Antwerp, the city that would foster his enormous individual fame and his success as a collaborator of Jan Brueghel.</p>

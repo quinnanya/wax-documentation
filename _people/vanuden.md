@@ -2,7 +2,7 @@
 layout: personpage
 title: "Lucas van Uden (1595-1672)"
 tag: vanuden
-image: '/img/vanuden.jpg'
+image: '../../img/vanuden.jpg'
 ---
 
 The son of the town painter, Artus van Uden, Lucas joined Antwerp’s Guild of St. Luke as a “master’s son” in 1626-27. His grandfather was Pieter van Uden, the founder of a well-known tapestry workshop in Antwerp. Lucas was likely trained by his father and was heavily influenced throughout his career by recent developments in Flemish landscape painting. He spent most of his career in Antwerp where he lived with his wife Anna van Woelput, whom he married in 1627. 

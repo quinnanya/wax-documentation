@@ -2,7 +2,7 @@
 layout: personpage
 title: "Albert VII, Archduke of Austria"
 tag: albert-vii-archduke-of-austria
-image: '/img/albert-vii-archduke-of-austria.jpg'
+image: '../../img/albert-vii-archduke-of-austria.jpg'
 ---
 
 <p>The fifth son to Holy Roman Emperor Maximilian II and Maria of Spain, herself the daughter of Holy Roman Emperor Charles V and Isabella of Portugal, Albrecht (or Albert) of Austria was born on November 13, 1559. Expected to pursue a clerical career, he was sent to Spain for an ecclesiastical education under King Philip II at age eleven. In 1577, the then-eighteen year old was appointed cardinal by Pope Gregory XIII. It was intended that Albrecht become the Archbishop of Toledo, but the position did not open to succession until 1594, over ten years after Albrecht had become First Viceroy of Portugal and its overseas empire as well as the country’s Papal Legate and Grand Inquisitor.</p>

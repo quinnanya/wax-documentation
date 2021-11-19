@@ -2,7 +2,7 @@
 layout: personpage
 title: "Hendrick van Steenwyck the Elder (ca. 1550-1603)"
 tag: steenwyckelder
-image: '/img/steenwyckelder.jpg'
+image: '../../img/steenwyckelder.jpg'
 ---
 
 <p>Hendrik van Steenwyck the Elder was born in 1550 in the Dutch town of Kampen, in the province of Overijssel. As a young man in the 1560s, he moved to Flanders in the pursuit of an artistic career. Van Steenwyck intended to settle in Antwerp but as Protestants, he and his family were forced to relocate to Aachen, where he would live until 1576. In 1573, he married Helena Heylwich, who was part of the Valckenborch family of artists. They would go on to have thirteen children. After the Pacification of Ghent, Van Steenwyck returned to Antwerp in 1577 until he was forced to leave again after the city was retaken by the Spanish. To avoid religious persecution, Van Steenwyck and his family moved to Frankfurt, Germany in May of 1586, where they finally settled. Van Steenwyck became a freeman of the city in June 7, 1587. He would work and remain there until his death in 1603 and he is buried in a Lutheran cemetery in Frankfurt.</p>

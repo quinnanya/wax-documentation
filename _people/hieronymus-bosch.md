@@ -2,7 +2,7 @@
 layout: personpage
 title: "Hieronymus Bosch"
 tag: hieronymus-bosch
-image: '/img/hieronymus-bosch.jpg'
+image: '../../img/hieronymus-bosch.jpg'
 ---
 
 <p>Hieronymus Bosch was born as Jeroen van Aken in around 1450 to a family of established artists. His father was Antonius van Aken and his grandfather was Jan van Aken. Little is known about Bosch’s early life but he was probably trained as a painter by a family member. In his early thirties, he married Aleyt van den Mervenne, a wealthy woman from a prominent family, which suggests that his own family was also socially well-situated. Eventually, he adopted the pseudonym Hieronymus Bosch, probably referring to his home town of  ‘s-Hertogenbosch or Den Bosch.</p>

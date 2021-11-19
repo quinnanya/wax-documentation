@@ -2,7 +2,7 @@
 layout: personpage
 title: "Cornelis Schut (1597–1655)"
 tag: cornelis-schut-1597-1655
-image: '/img/cornelis-schut-1597-1655.jpg'
+image: '../../img/cornelis-schut-1597-1655.jpg'
 ---
 <p>Cornelis Schut was a Flemish artist skilled in oil painting, engraving, and tapestry design who worked mostly in Antwerp. He specialized in religious and mythological scenes, many of which depicted popular Counter-Reformation subjects. He was one of the leading Flemish history painters of the early 17th century and is presumed to have trained under Rubens. </p>
 <p>Schut became a master of the Antwerp Guild of St. Luke in 1618, though he apparently never registered as an apprentice (Rubens was not required to register his pupils with the Guild). Later that same year, Schut departed Antwerp for Italy, where he was a founder of the Bentvueghels, an association of Dutch and Flemish artists who worked in Rome. In 1630, he became a member of the Wallflower rhetorical society. </p>

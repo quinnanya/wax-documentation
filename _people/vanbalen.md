@@ -2,7 +2,7 @@
 layout: personpage
 title: "Hendrick van Balen (1575-1632)"
 tag: vanbalen
-image: '/img/vanbalen.jpg'
+image: '../../img/vanbalen.jpg'
 ---
 
 <p>Hendrick van Balen was born in 1575 to the merchant Willem van Balen and Mechtelt van Aelten. A resident of Antwerp for most of his life, he became a master (Freimeister) in the city’s Guild of St. Luke (1592/3) before embarking on a trip to Italy. During his time there, he either met or studied the works of Hans Rottenhammer, and he was also heavily influenced by the work of Tintoretto. In 1609, back in Antwerp, he was named deacon of the painters’ guild. He was also constantly praised as liefhebber, a term describing a painter or lay patron who demonstrated acute and learned appreciation of contemporary art. For example, Van Balen received this accolade together with Peter Paul Rubens and Jan Brueghel the Elder for procuring a work painted by Caravaggio. Van Balen was intimately connected to Rubens and Brueghel in both professional and social capacities: they collaborated on paintings and shared drawings, and public records attest to their mutual appointments as godparents as well as intermarriage in the next generation. Van Balen regularly worked alongside contemporaries outside of this trio, including Anthony van Dyck, one of his many pupils. He married the middle-class Margareta Briers (1604) and fathered eleven children, three of whom—Jaspar, Hendrick the Younger, and Jan, the most successful—became painters. He died on July 17, 1632.<br />

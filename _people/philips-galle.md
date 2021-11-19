@@ -2,5 +2,5 @@
 layout: personpage
 title: "Philips Galle"
 tag: philips-galle
-image: '/img/philips-galle.jpg'
+image: '../../img/philips-galle.jpg'
 ---

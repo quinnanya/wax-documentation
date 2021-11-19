@@ -2,7 +2,7 @@
 layout: personpage
 title: "Adriaen van Stalbemt (1580-1662)"
 tag: vanstalbemt
-image: '/img/vanstalbemt.jpg'
+image: '../../img/vanstalbemt.jpg'
 ---
 
 <p>Because he was born to a Protestant family, Flemish painter and printmaker Adriaen van Stalbemt has no baptismal record. However, biographer Cornelius de Bie places his birthdate on June 12th, 1580. When he was five years old, Stalbemt’s family moved from Antwerp to Middleburg, where his formal training is believed to have taken place. Stalbemt returned to Antwerp in 1609. In 1610, he was admitted to the Guild of St. Luke, which he became dean of in 1617. Stalbemt married Barbara Verdelft on May 5th, 1613. The couple had one daughter who died in her youth. </p>

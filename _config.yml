@@ -167,6 +167,10 @@ menu:
         link: '/browse-genres/'
       - label: 'By location'
         link: '/browse-locations/'
+      - label: 'Browse people'
+        link: '/people'
+  - label: 'Pieter Brueghel'
+    link: '/pieterbrueghel/'
   - label: 'Search'
     link: '/search/'
 

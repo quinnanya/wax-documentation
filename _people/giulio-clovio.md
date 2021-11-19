@@ -2,7 +2,7 @@
 layout: personpage
 title: "Giulio Clovio"
 tag: giulio-clovio
-image: '/img/giulio-clovio.jpg'
+image: '../../img/giulio-clovio.jpg'
 ---
 
 <p>Born just before the turn of the sixteenth century in Croatia , Giulio Clovio (1498-1587) is one of the most famous and accomplished miniature painters and illuminators of the Italian Renaissance. In around 1516, Clovio moved to Italy, a crucial step in launching his artistic career. He first worked in Venice, serving the Cardinal Domenico Grimani. Under Grimani’s patronage, Clovio had the opportunity to go to Rome, and it was there that he met fellow painter Giulio Romano and was exposed to other great artists of the time.</p>

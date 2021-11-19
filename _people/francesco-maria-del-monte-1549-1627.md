@@ -2,7 +2,7 @@
 layout: personpage
 title: "Francesco Maria del Monte 1549-1627"
 tag: francesco-maria-del-monte-1549-1627
-image: '/img/francesco-maria-del-monte-1549-1627.jpg'
+image: '../../img/francesco-maria-del-monte-1549-1627.jpg'
 ---
 
 <p>Francesco Maria del Monte was an Italian cardinal, diplomat, art collector, and patron. Born in Venice in 1549, del Monte was the son Marquis Ranieri Bourbon del Monte and Minerva Pianosa. He came from a noble family from Pesaro with distant relations to the French royal House of Bourbon. Young Francesco Maria was educated at the court of Urbino and obtained a doctorate in law before beginning an ecclesiastical career as the Abbott commendatario of Santa Croce a Monte Fabali. In 1570, at the age of 21, Francesco moved to Rome. For the next decade, he worked in the courts of several Roman cardinals before arriving at the court of Cardinal Ferdinando de Medici in 1581. He was in his service until Medici resigned as cardinal to assume the position of Grand Duke of Tuscany. With Medici’s recommendation, Pope Sixtus V appointed Francesco as cardinal in 1588. Francesco took up residence in the Palazzo Madama, owned by Medici, in 1589. He served from 1606 to 1616 as the Prefect of the Sacred Congregation of the Council, and then became Prefect of the Sacred Congregation of Rites. He was also a prefect of the Fabbrica of St. Peter’s, a committee responsible for the basilica’s building.</p>

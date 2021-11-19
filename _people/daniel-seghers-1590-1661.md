@@ -2,7 +2,7 @@
 layout: personpage
 title: "Daniel Seghers (1590–1661)"
 tag: daniel-seghers-1590-1661
-image: '/img/daniel-seghers-1590-1661.jpg'
+image: '../../img/daniel-seghers-1590-1661.jpg'
 ---
 <p>Daniel Seghers was a Flemish painter who worked mostly in Antwerp. After the death of his father, the silk merchant Pierre Seghers, Daniel and his mother moved to the northern Netherlands and took on the Calvinist faith. While he may have begun his training in the North, Seghers returned to Antwerp and Catholicism as a young man.</p>
 <p>Seghers became a master in the Antwerp Guild of St. Luke in 1611, having trained under Jan Brueghel the Elder. He entered the Jesuit order in 1614. In 1625, Seghers became a Jesuit priest and began signing his works as Daniel Seghers Societatis Jesu. After his ordination, Seghers spent two years in Rome, but he moved back to Antwerp in 1627 and worked as a flower painter at a monastery until his death. </p>

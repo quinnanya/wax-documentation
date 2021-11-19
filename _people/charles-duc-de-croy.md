@@ -2,7 +2,7 @@
 layout: personpage
 title: "Charles duc de Croy"
 tag: charles-duc-de-croy
-image: '/img/charles-duc-de-croy.jpg'
+image: '../../img/charles-duc-de-croy.jpg'
 ---
 
 <p>Charles III de Croy, Duke of Croy and Aarschot and Prince of Chimay, was born in Beaumont in 1560. His father was Philippe III de Croy, who served as governor of the Citadel of Antwerp in 1577. One of the great old nobles of the Netherlands and a powerful military commander, Charles entered the Revolt of the Netherlands on the Protestant side and then switched to support Spain, handing over several key cities in the process. He continued as a military commander and then a peace negotiator, and became a member of the Council of State in 1600.</p>

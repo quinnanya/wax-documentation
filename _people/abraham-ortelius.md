@@ -2,7 +2,7 @@
 layout: personpage
 title: "Abraham Ortelius"
 tag: vanbalen
-image: '/img/abraham-ortelius.jpg'
+image: '../../img/abraham-ortelius.jpg'
 ---
 
 <p>Abraham Ortelius, sixteenth century cartographer and geographer, was orphaned at the age of twelve and was raised by his uncle, Jacob van Meteren, in Antwerp. While later in life his craft drew him to various important European cities, it was during Ortelius’ time in Antwerp as an apprentice to a map engraver that he established relationships with the artists he later patronized. In 1547 he joined the artists’ Guild of St. Luke, through which he connected with Marten de Vos, Joris Hoefnagel, Lucas d’Heere, Frans Hogenberg, Philips Galle, and Pieter Bruegel.</p>

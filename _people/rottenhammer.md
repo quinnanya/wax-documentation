@@ -2,7 +2,7 @@
 layout: personpage
 title: "Hans Rottenhammer (1564-1625)"
 tag: rottenhammer
-image: '/img/rottenhammer.jpg'
+image: '../../img/rottenhammer.jpg'
 ---
 
 <p>Hans Rottenhammer was born in 1564 in Munich, where he was also raised and received his initial artistic training. His father was an attendant at the Munich royal court, and the young Rottenhammer was apprenticed to court painter Hans Donauer in 1582. Rottenhammer studied with Donauer for six years, and during this time he was exposed to the court style popular in northern Europe. After completing his apprenticeship, Rottenhammer traveled to Italy. After a brief detour in Venice, he settled in Rome. Here, he established himself as an independent artist and mingled with other prominent painters and draughtsmen. Among these were a number of fellow northern Europeans, including Paul Bril and Jan Brueghel. He also made frequent trips to Venice before eventually moving back there in 1595. Rottenhammer spent nearly a decade in Venice and his art bears the influence of Venetian masters like Tintoretto and Veronese. Rottenhammer established a studio in the city and accumulated patrons and collectors, as well as students and followers. In the early 1600s, he joined the Venetian artists’ guild. He also married Elisabetta d’Fabris, and the couple had two sons, both artists. In 1606, Rottenhammer relocated to Augsburg, Bavaria, where he spent the rest of his life. Though he was a renowned painter, Rottenhammer spent the latter half of his life fighting off the many debts he had accumulated. He died, acclaimed yet penniless, in 1625.</p>
