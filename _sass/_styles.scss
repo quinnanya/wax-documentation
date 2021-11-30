@@ -1,0 +1,40 @@
+/*
+variable declaration
+*/
+
+/* text */
+
+$body-font:       'Alegreya Sans', 'sans-serif';
+$menu-font:		   'Alegreya Sans', 'sans-serif';
+$title-font:      'EB Garamond', 'serif';
+$accent-font:     'EB Garamond', 'serif';
+$heading-font:    'Alegreya Sans', 'sans-serif';
+
+
+/* Image Size */
+
+$thumbnail-width-small: 9rem;
+$thumbnail-width-large: 13.5rem;
+
+
+/* viewport sizes */
+
+$max-width:       1024px;
+
+/* margins */
+
+$less-margin:     1.0rem;
+$margin:          1.5rem;
+$more-margin:     2.0rem;
+$super-margin:    3.0rem;
+
+
+$viewer-height:   550px;
+$footer-height:   250px;
+
+/*
+font & asset import
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,800;1,400;1,500;1,600;1,700;1,800&family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap');
+@import 'brueghel-wax';

@@ -1,10 +1,8 @@
 ---
-layout: page
-title: Credits
+layout: text_page
+title: Who We Are
 permalink: '/credits/'
 ---
-
-## Who we are
 
 -  Elizabeth Alice Honig, Professor, University of California, Berkeley: art historian, editor, organizer
 - Stephanie Moore, UCB: Drupal site developer
@@ -16,7 +14,7 @@ permalink: '/credits/'
 - Zak Handler: mapping
 - William Tan: technical assistant
 
-### Former team members
+#### Former team members
 - Nina Amenta, Professor, University of California, Davis: computer science
 - Katherine Steiner, University of San Francisco: site designer
 - Julie Turgeon, Yale University: site manager, image researcher
@@ -56,7 +54,7 @@ permalink: '/credits/'
 - Henry Weikel: auctions research
 - Anya Shulman: Pieter Bruegel drawings and prints
 
-## Advisers
+#### Advisers
 
 - Louisa Wood Ruby, Frick Art Reference Library: drawings
 - Mark Meadow, University of California, Santa Barbara: Pieter Bruegel the Elder

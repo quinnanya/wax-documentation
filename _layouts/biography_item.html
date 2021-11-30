@@ -1,0 +1,48 @@
+---
+layout: default
+image_viewer: simple
+meta:
+  - label: "Born/Died"
+    value: page.birth_death
+  - label: "Status or Profession"
+    value: page.status_profession
+  - label: "Role"
+    value: page.role
+  - label: "Biography Author"
+    value: page.bio_author
+---
+
+<h3 alt="{{ page.label }}" class="page-title">{{ page.label }}</h3>
+<div class="biography-fields">
+  {% if page.birth_death.size %}
+    <h4>{{ page.birth_death }}</h4>
+  {% endif %}
+  {% if page.role.size %}
+    {{ page.role | capitalize | replace: "-", " "}}<br />
+  {% endif %}
+  {% if page.status_profession.size %}
+    {% unless page.status_profession == page.role %}{{ page.status_profession | capitalize | replace: "-", " "}}{% endunless %}
+  {% endif %}
+</div>
+
+{% if page.image_viewer %}
+  {% assign viewer = page.image_viewer %}
+{% elsif layout.image_viewer %}
+  {% assign viewer = layout.image_viewer %}
+{% endif %}
+
+<div class="item-view d-flex flex-row flex-wrap align-items-start"> 
+
+  <div class="biography-text col-7">
+    {% if page.bio_text.size %}
+      {{ page.bio_text }}
+    {% endif %}
+    {% if page.bio_author.size %}
+      <p><i>By {{ page.bio_author }}</i></p>
+    {% endif %}
+  </div>
+
+  <div class="col-4">
+    {% include simple_image_viewer.html full_image=page.full %}
+  </div>
+</div>

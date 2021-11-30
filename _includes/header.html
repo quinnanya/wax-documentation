@@ -1,38 +1,113 @@
-{% if site.tags != "" %}
-  {% include collecttags.html %}
+<!--HEADER-->
+{% if page.url contains 'pieterbruegel' %}
+  {% assign name = 'Pieter Bruegel' %}
+  {% assign othercat_firstname = 'Jan' %}
+  {% assign othercat_lastname = 'Brueghel' %}
+  {% assign collection = 'pieterbruegel' %}
+  {% assign home_url = '/pieterbruegel' %}
+  {% assign othercat_icon = '/img/janbrueghel_icon.png' %}
+  {% assign othercat_link = '/' %}
+{% else %}
+  {% assign name = 'Jan Brueghel' %}
+  {% assign othercat_firstname = 'Pieter' %}
+  {% assign othercat_lastname = 'Bruegel' %}
+  {% assign collection = 'janbrueghel' %}
+  {% assign home_url = '/' %}
+  {% assign othercat_icon = '/img/pieterbruegel_icon.png' %}
+  {% assign othercat_link = '/pieterbruegel' %}
 {% endif %}
 
-<nav id='wax-header' class='navbar navbar-expand-lg navbar-light'>
- <div class='wax-inline-container'>
-    <a class='navbar-brand' href="{{ '/' | absolute_url }}" title='Home'>
-      {{ site.title | newline_to_br }}
-    </a>
+{% capture icon %}/img/{{ collection }}_icon.png{% endcapture %}
+{% capture objects %}/{{ collection }}/browse-object-types{% endcapture %}
+{% capture genres %}/{{ collection }}/browse-genres{% endcapture %}
+{% capture tags %}/{{ collection }}/browse-tags{% endcapture %}
+{% capture locations %}/{{ collection }}/browse-locations{% endcapture %}
+{% capture dates %}/{{ collection }}/browse-dates{% endcapture %}
+{% capture about %}/about-{{ collection }}{% endcapture %}
 
-    <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#wax-header-navbar' aria-controls='wax-header-navbar' aria-expanded='false' aria-label='navigation'>
-      <span class='navbar-toggler-icon'></span>
+<div id="brueghel-header" class="container-fluid">
+  <nav class="navbar navbar-expand-md navbar-light d-inline-flex justify-content-between align-items-start">
+
+    <!-- Logo -->
+      <div class="d-inline-flex mr-0 mr-lg-auto">
+        <a href="{{ home_url | absolute_url }}" title="{{ name }} the Elder Home">
+        <div class="d-none d-sm-block"><img src="{{ icon | absolute_url }}" id="main-logo" alt="{{ name }} the Elder Home"></div>
+        </a>
+        <a href="{{ home_url | absolute_url}}" title="{{ name }} the Elder Home">
+        <div>
+          <h1 id="site-title" class="text-nowrap">{{ name }} <br class="d-sm-none" />the Elder</h1>
+          <h2 id="site-subtitle" class="text-nowrap">Complete Catalog</h2>
+        </div>
+      </a>
+      </div>
+
+    <!-- Menu Toggle Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class='collapse navbar-collapse' id="wax-header-navbar">
-      <ul class='nav navbar-nav ml-auto justify-content-end'>
-        {% for item in site.menu %}
-          {% if item.sub %}
-            <li class='nav-item dropdown'>
-              <a class='nav-link dropdown-toggle' href='#' id='wax-{{ item.label }}-dropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                {{ item.label }}
-              </a>
-              <div class='dropdown-menu' aria-labelledby='wax-{{ item.label }}-dropdown'>
-                {% for sub in item.sub %}
-                  <a class='dropdown-item' href='{{ sub.link | absolute_url }}'>{{ sub.label }}</a>
-                {% endfor %}
-              </div>
-            </li>
-          {% else %}
-            <li class='nav-item'>
-              <a class='nav-link' href='{{ item.link | absolute_url }}'>{{ item.label }}</a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
+    <!-- Menu -->
+    <div id="navmenu-container" class="container d-inline-flex align-items-start">
+
+      <!-- Column 1 -->
+      <div class="collapse navbar-collapse menu-column" id="navbarCollapse">
+        <ul class="navbar-nav flex-column ml-2 ml-md-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse by</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="{{ objects | absolute_url }}">Object Type</a>
+              <a class="dropdown-item" href="{{ genres | absolute_url }}">Genre</a>
+              <a class="dropdown-item" href="{{ tags | absolute_url }}">Tag</a>
+              <a class="dropdown-item" href="{{ locations | absolute_url }}">Location</a>
+              <a class="dropdown-item" href="{{ dates | absolute_url }}">Date</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown02">
+              <a class="dropdown-item" href="{{ about | absolute_url }}">{{ name }}</a>
+              <a class="dropdown-item" href="{{ '/about-the-site' | absolute_url }}">The Site</a>
+              <a class="dropdown-item" href="{{ '/credits' | absolute_url }}">Team</a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ '/search' | absolute_url }}" class="nav-link">Search</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="collapse navbar-collapse menu-column" id="navbarCollapseBottom">
+        <ul class="navbar-nav flex-column ml-2 ml-md-0">
+          <li class="nav-item">
+            <a href="{{ '/pages/bibliography' | absolute_url }}" class="nav-link">Bibliography</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ '/biographies' | absolute_url }}" class="nav-link">Biographies</a>
+          </li>
+          <!--<li class="nav-item">
+            <a href="{{ '/' | absolute_url }}" class="nav-link">Scale Gallery</a>
+          </li>-->
+          <li class="nav-item othercat-menu-link d-md-none">
+            <a href="{{ othercat_link | absolute_url }}" class="nav-link">{{ othercat_firstname }} {{ othercat_lastname }} Catalog</a>
+          </li>
+        </ul>
+      </div>
+
     </div>
-  </div>
- </nav>
+
+    <!--Other Catalog Link-->
+
+      <div id="othercat-link" class="d-none d-md-flex align-items-center">
+        <a href="{{ othercat_link | absolute_url }}">
+        <div><img src="{{ othercat_icon | absolute_url }}" id="othercat-logo" alt="{{ othercat_firstname }} {{ othercat_lastname }} Catalog"></div>
+        </a>
+        <a href="{{ othercat_link | absolute_url }}">
+        <div><h2 id="othercat-link-text">{{ othercat_firstname }} <br/>{{ othercat_lastname }} <br/>Catalog</h2>
+        </div>
+        </a>
+      </div>
+  </nav>
+</div>

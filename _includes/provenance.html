@@ -1,0 +1,16 @@
+{% assign prov_items = include.fieldvalue | split: "|" %} 
+
+<table class="provenance">
+  <tbody>
+
+  {% for item in prov_items %}
+    {% assign prov_item = site.provenance | where: "pid", item %}
+    <tr>
+      <td>{{ prov_item[0].provenance_date }}</td>
+      <td>{{ prov_item[0].provenance_location }}</td>
+      <td>{{ prov_item[0].provenance_text }}</td>    
+    </tr>
+  {% endfor %}
+
+  </tbody>
+</table>

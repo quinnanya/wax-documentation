@@ -1,0 +1,31 @@
+---
+layout: default
+---
+{% assign collection = site[layout.collection] | sort: "label" %}
+
+<h2 class="page-title">{{ page[layout.cat] }}</h2>
+<div id="result_count"></div>
+<div class="container-fluid d-flex flex-column flex-md-row align-items-start">
+  <div id="wax-gallery-object-type" class="col-12 d-flex flex-wrap">
+    {% assign counter = 0 %}
+    {% for item in collection %}
+      {% if layout.cat == 'worktags' %}
+        {% if item[layout.cat] contains page.worktag %}
+          {% include gallery_item.html value=page.worktag item=item %}
+          {% assign counter = counter | plus: 1 %}
+        {% endif %}
+      {% else %}
+        {% if item[layout.cat] == page[layout.cat] %}
+          {% include gallery_item.html value=layout.cat item=item %}
+          {% assign counter = counter | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+ $( document ).ready(function() {
+  $('#result_count').append("Results: {{ counter }}");
+ });
+</script>

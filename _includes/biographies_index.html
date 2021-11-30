@@ -1,0 +1,20 @@
+{% assign collection = site[include.collection] | sort: "last_name" %}
+
+<div id="wax-gallery-biographies-container" class="container-fluid d-flex flex-column flex-md-row align-items-start">
+    <div id="wax-gallery-biographies" class="wax-gallery col-12 d-flex flex-wrap"></div>
+</div>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    var container = $('#wax-gallery-{{ include.collection }}-container');
+    var gallery = $('#wax-gallery-{{ include.collection }}');
+
+  {% for item in collection %}
+    {%- capture item_html -%}
+        '<div class="gallery-item {{ facetvalue }} all col pr-3"><table><tbody><tr><td class="align-top"><div class="item-image-container"><a href="{{ item.url | absolute_url }}"><img src="{{ item.thumbnail | absolute_url }}" alt="{{ item.label }}"></a></div></td><td class="align-top"><div class="item-info"><div class="item-link"><a href="{{ item.url | absolute_url }}">{{ item.label }}</a></div>{% if item.birth_death %}<div class="item-birth-death">{{ item.birth_death}}</a>{% endif %}</div></td></tr></tbody></table></div>'
+    {%- endcapture -%}
+    gallery.append({{ item_html | strip_newlines }});
+  {% endfor %}
+
+  });
+</script>

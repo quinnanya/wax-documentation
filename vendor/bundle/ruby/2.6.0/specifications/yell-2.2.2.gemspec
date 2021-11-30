@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.description = "Yell - Your Extensible Logging Library. Define multiple adapters, various log level combinations or message formatting options like you've never done before".freeze
   s.homepage = "https://github.com/rudionrails/yell".freeze
   s.licenses = ["MIT".freeze]
-  s.rubygems_version = "3.0.3".freeze
+  s.rubygems_version = "3.0.1".freeze
   s.summary = "Yell - Your Extensible Logging Library".freeze
 
-  s.installed_by_version = "3.0.3" if s.respond_to? :installed_by_version
+  s.installed_by_version = "3.0.1" if s.respond_to? :installed_by_version
 end

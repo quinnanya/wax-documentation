@@ -1,0 +1,21 @@
+---
+sitemap: false
+---
+/* branding */
+$logo: url("{{ '/img/favicon.png' | absolute_url }}");
+$banner: url("{{ '/img/janbrueghel_banner.jpg' | absolute_url }}");
+
+/* colors */
+
+$text-color:       #d8d8dc;
+$bg-color:	  	   #60667c;
+$head-bg-color:    #bbbac0;
+$footer-color:     #bbbac0;
+$title-color:	     #9f484e;
+$link-color:	      #ffe3a9;
+$menu-link-color:   #60667c;
+$accent-color:      #9f484e;
+$objecttype-color:  #a64848;
+$darker-bg:           #525769;
+
+@import 'styles.scss';

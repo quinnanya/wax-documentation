@@ -1,0 +1,6 @@
+{% assign exhibitions = include.fieldvalue | split: "|" %} 
+
+{% for item in exhibitions %}
+  {{ item }}<br />
+{% endfor %}
+

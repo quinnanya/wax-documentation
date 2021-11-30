@@ -1,13 +1,10 @@
 ---
 layout: default
 ---
-<script type="module" src="https://cdn.jsdelivr.net/gh/simonwiles/palladio-webcomponents@4389508a/palladio-map-webcomponent.js"></script>
 
 {% comment %}
   The block below controls the image viewer
 {% endcomment %}
-
-<h3 alt="{{ page.label }}" class='item-label'>{{ page.label }}</h3>
 
 {% if page.image_viewer %}
   {% assign viewer = page.image_viewer %}
@@ -15,28 +12,31 @@ layout: default
   {% assign viewer = layout.image_viewer %}
 {% endif %}
 
-{% if viewer %}
-  <div class='item-view'>
-    <span class='pagination-link' id='prevlink'></span>
-    {% if viewer == 'openseadragon' %}
-      {% include osd_iiif_image_viewer.html manifest=page.manifest prevlink=prevlink nextlink=nextlink %}
-    {% else %}
-       {% include simple_image_viewer.html full_image=page.full prevlink=prevlink nextlink=nextlink %}
-    {% endif %}
-    <span class='pagination-link' id='nextlink'></span>
+<div class="item-view"> 
+  
+  <div class="order-1 order-md-2 col-12 col-md">
+    {% include simple_image_viewer.html full_image=page.fullwidth %}
   </div>
-  {% unless layout.pagination == false %}{% include item_pagination.html %}{% endunless %}
-{% endif %}
 
-{% comment %}
-  The block below controls the item metadata table
-{% endcomment %}
+  {% comment %}
+    The block below controls the item metadata table
+  {% endcomment %}
 
-{% if layout.meta.size %}
-  {% assign metadata = layout.meta %}
-{% elsif page.meta.size %}
-  {% assign metadata = page.meta %}
-{% endif %}
-{% if metadata.size %}
-  {% include item_metadata.html meta=metadata %}
-{% endif %}
+  {% if layout.meta.size %}
+    {% assign metadata = layout.meta %}
+  {% elsif page.meta.size %}
+    {% assign metadata = page.meta %}
+  {% endif %}
+  {% if metadata.size %}
+    <div id="main-metadata" class="order-2 order-md-1 col-12 col-md">
+      <h3 alt="{{ page.label }}" class="item-title">{{ page.label }}</h3>
+      {% include item_metadata.html meta=metadata %}
+    </div>
+    <div id="tabbed-metadata" class="order-3 col-12">
+      {% include tabbed_metadata.html meta=metadata %}
+    </div>
+  {% endif %}
+
+{% include image_modal.html %}
+
+</div>

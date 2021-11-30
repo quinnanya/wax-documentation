@@ -1,0 +1,69 @@
+---
+layout: default
+---
+<!--Object Type Icons-->
+{% assign object_types = 'painting, drawing, print' | split: ', ' %}
+{% if page.collection == 'janbrueghel' %}
+  {% assign object_types = object_types | push: 'oil-sketch' %}
+{% endif %}
+
+<div id="object-types" class="row justify-content-between">
+  {% for type in object_types %}
+    {%- capture url -%}
+      /{{ page.collection }}/object-types/{{ type }}
+    {%- endcapture -%}
+    {% case type %}
+      {% when 'painting' %}
+        {% assign title = 'Paintings' %}
+        {%- capture image -%}
+          /img/{{ page.collection }}_paintings.jpg
+        {%- endcapture -%}
+      {% when 'drawing' %}
+        {% assign title = 'Drawings' %}
+        {%- capture image -%}
+          /img/{{ page.collection }}_drawings.jpg
+        {%- endcapture -%}
+      {% when 'print' %}
+        {% assign title = 'Prints' %}
+        {%- capture image -%}
+          /img/{{ page.collection }}_prints.jpg
+        {%- endcapture -%}
+      {% when 'oil-sketch' %}
+        {% assign title = 'Oil Sketches'%}
+        {%- capture image -%}
+          /img/{{ page.collection }}_oil_sketches.jpg
+        {%- endcapture -%}
+    {% endcase %}
+    <a class="col" href="{{ url | absolute_url }}">
+      <div class="object-type-container">
+        <div class="object-type-text">{{ title }}</div>
+        <div class="object-type-image"><img src="{{ image | absolute_url }}"/></div>
+        <div class="object-type-overlay"></div>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+
+<div id="landing-page-content" class="row">
+  <!--About Text-->
+  <div id="about-text" class="col-sm-12 col-md-8">
+    {{ content }}
+  </div>
+
+  <!--Menus-->
+  <div class="col-sm-12 col-md-4 m-0">
+    <div class="browsing-menu">
+      <h4>Browse by genre</h4>
+      <ul class="browsing-menu-list">
+        {% include browsing_genres_{{ page.collection }}.html %}
+      </ul>
+    </div>
+    <!--Or browse by-->
+    <div class="browsing-menu">
+      <h4>Or browse by</h4>
+      <ul class="browsing-menu-list">
+        {% include browse_others_{{ page.collection }}.html %}
+      </ul>
+    </div>
+  </div>
+</div>

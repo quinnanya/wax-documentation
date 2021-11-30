@@ -1,0 +1,22 @@
+---
+sitemap: false
+---
+
+/* branding */
+$logo: url("{{ '/img/favicon.png' | absolute_url }}");
+$banner: url("{{ '/img/pieterbruegel_banner.jpg' | absolute_url }}");
+
+/* colors */
+
+$text-color:      #eadcb7;
+$bg-color:	  	  #616445;
+$head-bg-color:   #beb18f;
+$footer-color:    #beb18f;
+$title-color:	    #a64848;
+$link-color:	    #fadf90;
+$menu-link-color: #7f6e5e;
+$accent-color:    #a64848;
+$objecttype-color:  #9a6729;
+$darker-bg:       #525535;
+
+@import 'styles.scss';

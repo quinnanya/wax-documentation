@@ -1,0 +1,1089 @@
+---
+layout: page
+---
+
+<div class="text-page-wrapper">
+
+<!-- You can add text here to display text above the scale gallery -->
+If the scale gallery does not load, please make sure you are on a modern browser and have Javascript enabled.
+
+<!-- IMPORTANT: DO NOT MODIFY OR REMOVE THE LINE BELOW -->
+<div id="ScaleMain" style="display:none;"></div>
+
+<!-- You can add text here to display text below the scale gallery -->
+
+<!-- IMPORTANT: DO NOT MODIFY ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING -->
+<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript"> 
+  /**
+  *
+  * BRUEGHEL SCALE GALLERY CUSTOM JAVASCRIPT CODE
+  * ===========================================================================
+  * By: Crystal Yan, 2017
+  *
+  * Generates a scrollable gallery of paintings by Pieter Bruegel and Jan Brueghel, 
+  * approximately sized in proportion to each other and to a human profile for comparison. 
+  * **THIS CODE DOES NOT SCALE THE PAINTINGS THEMSELVES;** the image files of paintings to 
+  * display should each already be proportionately scaled. Each painting is clickable and 
+  * will take the viewer to the painting’s web page. Also, each painting has a similarly-
+  * clickable title plaque below it. Each artist is given their own gallery section and 
+  * room decor; Pieter’s is displayed first. A “skip” sign on the wall allows the viewer to 
+  * skip Pieter’s gallery section and teleport ahead to Jan’s section. Should a painting in 
+  * the gallery fail to load, a substitute empty frame will display instead.
+  *
+  * Tested on latest 2017 versions of Firefox, Chrome, and Safari. This script has not been 
+  * tested for mobile.
+  *
+  *
+  * Pre-requisites for this script to work:
+  * ———————————————————————----------------
+  * 1) This script has not been tampered with. **PLEASE SAVE A COPY OF THE ORIGINAL VERSION 
+  * OF THIS SCRIPT BEFORE ATTEMPTING TO EDIT THIS. Avoid tampering with the script on the live 
+  * version of the BrueghelFamily site and instead make modifications in a temporary Drupal dev 
+  * environment.**
+  *
+  * 2) The open-source d3 JavaScript library still exists, and its URL links is up-to-date in 
+  * the script src tag above my code.
+  *
+  * 3) The following assets have been hosted on the same BrueghelFamily website as this script, 
+  * and the assets’ currently residing URLs are up-to-date in the **GLOBAL VARIABLES** section 
+  * in my code:
+  *
+  *   - A well-formed CSV of Pieter’s paintings, with the first row containing the column names 
+  * “Full Image Title”, “Date”, “Onsite Image URL”, “Object Page URL”, and “Shortened Title 
+  * with Date” EXACTLY and in this order. Rows underneath list the corresponding fields for each 
+  * painting to appear in the gallery. For a well-formed CSV, no commas are allowed anywhere in 
+  * the fields, such as in painting titles! All rows should have the same five columns and not 
+  * have missing or misspelled fields.
+  *   - A similar well-formed CSV of Jan’s paintings
+  *   - Seamless/repeatable gallery background for Pieter’s gallery section
+  *   - Seamless/repeatable gallery background for Jan’s gallery section
+  *   - Gallery borderline graphic to place as a line between Pieter’s and Jan’s gallery sections
+  *   - Image graphic of a human for size comparison in Pieter’s gallery
+  *   - Image graphic of a human for size comparison in Jan’s gallery
+  *   - Image graphic as a substitute for a framed painting in case of loading error
+  *
+  * The URLs for these hosted assets should be the actual file URLs (i.e., 
+  * www.brueghelfamily.net/sites/default/files/jan.csv, *.png), not the URLs to the Drupal webpages
+  * they are hosted on.
+  *
+  * Note that under default Drupal 7 settings, reuploading/editing an hosted file changes its 
+  * URL (usually it alternates between appending a “-0” to the end of the filename, and not)! 
+  * This means that if you edit the image file for a framed painting in Drupal, you’ll have to 
+  * edit to update its URL in the CSV as well, and update the URL for the edited CSV in this scale 
+  * gallery code. If you edit a CSV or one of the graphical assets (such as a gallery background 
+  * image) in Drupal, you’ll have to update the URL for that file in this scale gallery code.
+  *
+  * 4) The viewer has JavaScript enabled and is not using a script-blocker.
+  *
+  * 5) The viewer is using a modern web browser. Ancient versions of IE, etc. may not support 
+  * modern JavaScript API in general (as of 2017)
+  *
+  * 6) Drupal is not interfering with this script. DO NOT import libraries at will, as they may 
+  * conflict with Drupal itself (for example, importing a duplicate jQuery library that Drupal 
+  * had already imported)
+  *
+  *
+  * High-level explanation for what this script does:
+  * ———————————————————————————————------------------
+  * 0) Before this script is an HTML section, which creates a first-invisible div container for the 
+  * scale gallery to appear within the Drupal webpage. It also imports the d3 library, which is used 
+  * for asynchronously loading the CSVs
+  *
+  * 1) d3 is called twice, to load Pieter’s and Jan’s CSVs. Because each CSV load is asynchronous, 
+  * each d3 call is given my function `parseOnCSVLoad()` as a callback. 
+  *
+  * 2) `parseOnCSVLoad()` has 4 steps: 
+  *   a) Parses the fields of the given artist’s CSV into global `dataArrays,` 
+  *   b) Sorts the painting CSV data in chronological order,
+  *   c) Preloads the paintings by setting images to the paintings’ URLs ahead of time, and storing 
+  *      them into the global `imageArrays` for later. Preloading is necessary to try to load this 
+  *      bulk of paintings as early as possible
+  *   d) Call on my function `checkCanRenderGallery().` This function is a common callback function 
+  *      for both CSV parses, and uses the global semaphore `artistsDone` to check if two CSVs have 
+  *      finished parsing. If so, my function `renderGalleryOnDOMLoad()` is called.
+  *
+  * 3) Once both artists’ CSVs have been parsed and the paintings initiated loading, 
+  * `renderGalleryOnDOMLoad()` is called and has 6 steps:
+  *   a) Mark the entire scale gallery as visible from now on.
+  *   b) Call my function `renderArtistGallery()` to construct a DOM object for holding gallery 
+  *      images in for each artist
+  *   c) Call my function `renderPaintings()` to create clickable Canvas objects and title plaques 
+  *      for each painting. The Canvas objects are initially set to the substitute empty frame image, 
+  *      until the painting’s image successfully loads
+  *   d) Call my function `renderHuman()` to add Canvas objects displaying the human graphic to the 
+  *      start of each artist’s gallery.
+  *   e) Call my function `renderSkip()` to add clickable skip buttons to the start of each artist’s 
+  *      gallery. These skip buttons auto-scroll the viewer to the position of the other gallery, 
+  *      which is dynamically calculated.
+  *   f) Call my function `renderGalleryScroller()` to construct the overall scroller and gallery 
+  *      container objects in the DOM. Once this function finishes, the scale gallery is finished 
+  *      setting up.
+  *
+  * 4) As each painting’s image finishes asynchronous-loading, its corresponding Canvas object is 
+  * found and switched to display the actual framed image. The gallery layout, as well as the skip 
+  * buttons (which need to know the latest x-position of each gallery to auto-scroll to), thus need 
+  * to be updated with the finished painting’s actual width. Each Canvas thus uses my helper function 
+  * `updateWidth()` to update the gallery widths.
+  *
+  *
+  * Troubleshooting Notes:
+  * ———————————————-------
+  * For assistance with troubleshooting, open up the Developer Error Console and use my helper function 
+  * `debug_log()` with `LOGGING_ENABLED` set to true to see print statements on script progress and 
+  * possible errors.
+  *
+  * 1) **If the scale gallery does not display at all on the webpage:** 
+  * Try refreshing or revisiting the page first. Likely an error occurred that made the script terminate 
+  * early (i.e. misspelled syntax error, or Drupal itself is no longer compatible and is interfering 
+  * with this script, or d3 has failed to be imported, or d3 failed to find and load both CSV files, 
+  * or the browser does not support modern JavaScript).  Please verify that the pre-requisites for 
+  * this script to work (listed earlier) are all fulfilled, then check if this script has been 
+  * tampered with.
+  *
+  * 2) **If the page/script becomes unresponsive:** 
+  * The script is hung up and is failing to run to completion. 
+  *
+  * 3) **If a painting has been substituted with an empty frame:** 
+  * The CSV does not have an up-to-date URL for that painting. The image thus never loads. Update the 
+  * CSV “Onsite Image URL” field with the up-to-date painting URL, then update this script with the 
+  * up-to-date CSV’s URL.
+  *
+  * 4) **If a painting-plaque combination’s link is broken and takes to a Page Not Found on the Brueghel 
+  * website:** 
+  * The CSV does not have an up-to-date URL for that painting’s page. Update the CSV “Object Page URL” 
+  * field with the up-to-date link URL, then update this script with the up-to-date CSV’s URL.
+  *
+  * 5) **If a painting disappears, displays blue alt text in a jumble instead, or has been substituted 
+  * with an invisible box with a blue question mark:** 
+  * The canvas is failing to load both the actual painting image, and the temporary empty frame image. 
+  * Update the CSV to the up-to-date URL for the painting, as well as this script to the up-to-date URL 
+  * for the missingPainting empty frame image. Update this script with the up-to-date CSV’s URL. Verify 
+  * that the gallery objects are of correct width to fit all paintings within the scrollable width of 
+  * the scroller.
+  *
+  * 6) **If paintings appear in two rows or out of height of the scroller confines:** 
+  * The gallery width is not dynamically updating properly to fit all currently-loaded paintings. 
+  *
+  * 7) **If a human disappears or has been substituted with an invisible box with a blue question mark:** 
+  * The canvas is failing to load the human graphic. Update this script with an up-to-date URL for the 
+  * human graphic. Verify that the gallery objects are of correct width to fit the human within the 
+  * scrollable width of the scroller.
+  *
+  * 8) **If (some of) the gallery background is blank or instead replaced with brown vertical stripes:** 
+  *  The brown vertical stripes are actually the gallery borderline graphic put on repeat behind the 
+  * gallery scroller. If the gallery background is blank, then even the borderline graphic is not 
+  * loading. Update this script with the up-to-date URLs for the gallery backgrounds. Verify that the 
+  * gallery objects are of correct width to display within the scrollable width of the scroller.
+  *
+  **/
+
+
+  /** 
+   *
+   *  GLOBAL VARIABLES 
+   *  ================
+  **/
+
+  /**
+   *  Global variables for img and CSV links. MAKE SURE THESE LINKS ARE UP-TO-DATE
+   *  ----------------------------------------------------------------------------
+  **/
+
+  const pieterBG = "../img/scale/bgPieterExt.png"; // Background for Pieter's gallery
+  const janBG = "../img/scale/bgJanExt.png"; // Background for Jan's gallery
+  const borderBG = "../img/scale/bgBorderlineExt.png"; // Border between Pieter's and Jan's galleries
+
+  const pieterHuman = "../img/scale/RubensGuy.png"; // Human for comparison in Pieter's gallery
+  const janHuman = "../img/scale/rubens2.png"; // Human for comparison in Jan's gallery
+
+  const pieterCSV = "../img/scale/jan-scale-gallery-fake.csv"; // Pieter CSV Link
+  const janCSV = "../img/scale/jan-scale-gallery.csv"; // Jan CSV Link
+
+  const missingPainting = "..img/scale/frameMissing.png"; // Substitute image to use for unloaded paintings
+
+  const csvColumns = ["Full Image Title", "Date", "Onsite Image URL", "Object Page URL", "Shortened Title with Date"]; // Header names for both columns of CSV
+
+
+  /**
+   *  Global variables for formatting, such as sizes and color schemes
+   *  ----------------------------------------------------------------
+  **/
+
+  const screenWidth = "100%";             // Scroller width in webpage body (within Drupal)
+  const screenHeight = 400;               // Scroller height in pixels
+  const galleryBorderWidth = 10;          // Pixel width of transition between Pieter and Jan
+  const defaultGalleryWidth = 500;        // Default pixel width of a single artist's gallery
+  const defaultPaintingWidth = 80;        // Default pixel width of an unloaded painting
+  const defaultPaintingHeight = 100;      // Default pixel width of an unloaded painting
+  const defaultHumanWidth = 80;           // Default pixel width of an unloaded human
+  const minPlaqueWidth = 80;              // Minimum horizontal width of a plaque
+  const maxPlaqueWidth = 150;             // Maximum horizontal width of a plaque
+  
+  const paintingGap = 25;                 // Pixel gap between paintings
+  const floorGap = 165;                   // Pixel gap of paintings from floor
+  const titleGap = 270;                   // Pixel gap of titles from ceiling
+  const titleHeight = 50;                 // Pixel height of painting titles
+  const skipGap = 30;                     // Pixel gap of skip button from ceiling
+  
+  const paintingScale = .13;              // Factor to proportionately scale to all paintings 
+  const pieterHumanScale = .27;           // Factor to proportionately scale for Pieter's human
+  const janHumanScale = .35;              // Factor to proportionately scale for Jan's human
+  
+  const galleryStart = 200;               // Starting gap in pixels before paintings start
+  const galleryExtend = 30;               // Extend each gallery width by this constant for insurance
+  const galleryEnd = 30;                  // Extend total gallery width by this constant for insurance
+
+  const linkColor = "#d1b561";            // Color of title text
+  const linkHoverColor = "white";         // Color of title text on mouse hover
+  const plaqueColor = "#3d260f";          // Color of plaques
+  const skipWidth = 60;                   // Pixel width of skip button
+
+
+  /**
+   *  Global variables for data structures used by code
+   *  -------------------------------------------------
+   *
+   *  For reusability, refer to objects corresponding to each artist as:
+   *  var artist = jan;
+   *  dataArrays[jan];
+   *
+   *  -- or --
+   *
+   *  for (var artist = 0; artist < artistNames.length; artist++) {
+   *    dataArrays[artist];     // artist first set to 0, which is pieter
+   *    if (artist == jan) {
+   *      debug_log("This is jan!");
+   *    }
+   *  }
+  **/
+
+  const pieter = 0;                                         // Pieter's array index
+  const jan = 1;                                            // Jan's array index
+  const artistNames = ["Pieter", "Jan"];                    // Names of the artists. For debugging/printing purposes 
+
+  var artistsDone = 0;                                      // Semaphore to sync code execution once both CSV async requests are finished
+  const expectedArtistsDone = 2;                            // Semaphore must see 2 artists completed before final rendering
+
+  var pieterGallery;                                        // Holds DOM container objects for Pieter
+  var janGallery;                                           // Holds DOM container objects for Jan
+  var galleryObjects = [pieterGallery, janGallery];         // Holds DOM container objects of Pieter and Jan respectively
+
+  const galleryBGs = [pieterBG, janBG];                     // Holds image URL for backgrounds of each artist gallery
+  const humanScales = [pieterHumanScale, janHumanScale];    // Holds scaling factor for humans of each artist gallery
+  const csvFiles = [pieterCSV, janCSV];                     // Holds import URLs of CSV files for d3
+  
+  const fullTitle = csvColumns[0];                          // CSV header for full title of painting
+  const year = csvColumns[1];                               // CSV header for year of painting
+  const srcUrl = csvColumns[2];                             // CSV header for image src of painting
+  const urlLink = csvColumns[3];                            // CSV header for url of painting link
+  const shortTitle = csvColumns[4];                         // CSV header for plaque title of painting
+
+  var pieterHumanImg = new Image();                         // Human image for Pieter gallery
+  pieterHumanImg.src = pieterHuman;
+  var janHumanImg = new Image();                            // Human image for Jan gallery
+  janHumanImg.src = janHuman;
+  const humans = [pieterHumanImg, janHumanImg];             // Holds human images for the gallery
+ 
+  var pieterDataArray = [];                                 // Stores csv data for Pieter in chronological order
+  var janDataArray = [];                                    // Stores csv data for Jan in chronological order
+  var dataArrays = [pieterDataArray, janDataArray];         // CSV Data for both artists
+
+  var pieterImageArray = [];                                // Caches Pieter's painting image objects in chronological order
+  var janImageArray = [];                                   // Caches Jan's painting image objects in chronological order
+  var imageArrays = [pieterImageArray, janImageArray];      // Image objects for both artists
+
+  var pieterWidthArray = new Object;                        // Associative array mapping Pieter img (paintings and humans) IDs to their widths in gallery
+  var janWidthArray = new Object;                           // Associative array mapping Jan img (paintings and humans) IDs to their widths in gallery
+  var widthArrays = [pieterWidthArray, janWidthArray];      // Image width associative arrays for both artists for dynamically calculating gallery widths
+
+  var pieterCanvasArray = new Object;                       // Associative array mapping Pieter img (paintings and humans) IDs to their canvases
+  var janCanvasArray = new Object;                          // Associative array mapping Jan img (paintings nad humans) IDs to their canvases
+  var canvasArrays = [pieterCanvasArray, janCanvasArray];   // Image Canvas object associative arrays for both artists
+
+  
+
+  /**
+   *  Global variables for debugging purposes
+   *  ---------------------------------------
+  **/
+
+  /**
+   *  To locate invisible DOM object, highlight with borders as:
+   *  object.style.border = blackBorder;
+  **/
+
+  const blackBorder = "3px solid black";    // Add outlines around DOM containers for DOM debugging
+  const blueBorder = "3px solid blue";      // Add outlines around DOM containers for DOM debugging
+  const redBorder = "3px solid red";        // Add outlines around DOM containers for DOM debugging
+  const greenBorder = "3px solid green";    // Add outlines around DOM containers for DOM debugging
+
+  /** 
+   *  Console logging functionality for debugging.
+   *  --------------------------------------------
+   *
+   *  To print to console, print as:
+   *  debug_log("Printing dataArrays:");
+   *  debug_log(dataArrays); 
+  **/
+  const LOGGING_ENABLED = false;             // Set to false to disable console log output
+  function debug_log() {
+    if (LOGGING_ENABLED) {
+      console.log.apply(console, arguments);
+    }
+  }
+
+
+
+  /** 
+   *
+   *  MAIN CODE (Bootstrapper) 
+   *  ========================
+  **/
+
+  // Call on d3 to load the painting CSV for each artist
+  debug_log("Loading Pieter csv...");
+  d3.csv(pieterCSV, function(data) {
+    parseOnCSVLoad(data, pieter);
+  });
+
+  debug_log("Loading Jan csv...");
+  d3.csv(janCSV, function(data) {
+    parseOnCSVLoad(data, jan);
+  });
+
+
+
+  /** 
+   *
+   *  FUNCTION DEFINITIONS 
+   *  ====================
+  **/
+
+
+  /**
+   *  Asynchronous CSV-handling functions
+   *  -----------------------------------
+  **/
+
+
+  /* Main loading of a single artist's csv function */
+  function parseOnCSVLoad(csvData, artist) 
+  {
+    // Verify CSV headers
+    for (var i = 0; i < csvColumns.length; i++) {
+      if (csvData[0][csvColumns[i]] == undefined) {
+        debug_log("ERROR: " + artistNames[artist] + " CSV header '" + csvColumns[i] + "' does not appear to exist! Check CSV file is formatted correctly");
+      }
+    }
+
+    /* Parse artist's CSV data into arrays of painting objects */
+
+    // Store each csv row (data for a painting) in array for later
+    for (var i = 0; i < csvData.length; i++) {
+      dataArrays[artist].push(csvData[i]);
+    }
+
+    // Sort array items based on year first, then alphabetical for gallery ordering
+    debug_log("...Sorting " + artistNames[artist] + " CSV by year...");
+    dataArrays[artist].sort(compareYear);
+    debug_log("...Loaded " + artistNames[artist] + " CSV!");
+
+    // Create image objects based off CSV URLs
+    debug_log("...Caching " + artistNames[artist] + " images...");
+    cacheCSVPaintings(artist);
+    debug_log("...Cached " + artistNames[artist] + " images!");
+
+    /* Check both artists have been cached, then render gallery on page */
+    debug_log("..." + artistNames[artist] + " CSV finished! Checking if both artists are done...");
+    checkCanRenderGallery();
+
+  }
+
+
+  /* Preload painting images into imageArrays by iterating through the dataArray of artist */
+  function cacheCSVPaintings(artist)
+  {
+    var csvArray = dataArrays[artist];
+
+    for (var i = 0; i < csvArray.length; i++) {
+      // Create Image object for the painting
+      var _img = new Image();
+      _img.id = csvArray[i][urlLink];
+      _img.alt = csvArray[i][fullTitle];
+      _img.title = csvArray[i][shortTitle];
+      //_img.style.boxShadow = "3px 3px 5px";  // Commented out - some frames aren't flush to image borders, no border shadow
+
+      // Create a corresponding canvas for the image to later add to DOM
+      var _cnv = document.createElement("canvas");
+      _cnv.id = "canvas"+_img.id;
+      canvasArrays[artist][_img.id] = _cnv;
+
+      _img.src = csvArray[i][srcUrl];
+
+      if (!_img.complete || _img.naturalWidth == 0 || _img.src == missingPainting) {
+        // Calculate a default img width first before being loaded
+        _img.style.width = convertPx(defaultPaintingWidth);
+        _img.style.height = convertPx(defaultPaintingHeight);
+        _img.style.maxWidth = convertPx(defaultPaintingWidth);
+        _img.style.maxHeight = convertPx(defaultPaintingHeight);
+        updateWidth(artist, _img);
+      } else {
+        _img.style.width = convertPx(paintingScale * _img.naturalWidth);
+        _img.style.height = convertPx(paintingScale * _img.naturalHeight);
+        _img.style.maxWidth = convertPx(paintingScale * _img.naturalWidth);
+        _img.style.maxHeight = convertPx(paintingScale * _img.naturalHeight);
+        updateWidth(artist, _img);
+      }
+
+      _img.onload = function() {
+        debug_log("... ...Img " + this.title + " loaded!");
+
+        // Update width calculations
+        if (this.src != missingPainting) {
+          this.style.width = convertPx(paintingScale * this.naturalWidth);
+          this.style.height = convertPx(paintingScale * this.naturalHeight);
+          this.style.maxWidth = convertPx(paintingScale * this.naturalWidth);
+          this.style.maxHeight = convertPx(paintingScale * this.naturalHeight);
+          updateWidth(artist, this);
+        } else {
+          this.style.width = convertPx(defaultPaintingWidth);
+          this.style.height = convertPx(defaultPaintingHeight);
+          this.style.maxWidth = convertPx(defaultPaintingWidth);
+          this.style.maxHeight = convertPx(defaultPaintingHeight);
+          updateWidth(artist, this);
+        }
+      }
+
+      _img.onerror = function() {
+        debug_log("ERROR: Img " + this.title + " has failed to load!");
+        // Substitute with temp painting image
+        this.src = missingPainting;
+        this.style.width = convertPx(defaultPaintingWidth);
+        this.style.height = convertPx(defaultPaintingHeight);
+        this.style.maxWidth = convertPx(defaultPaintingWidth);
+        this.style.maxHeight = convertPx(defaultPaintingHeight);
+        updateWidth(artist, this);
+      }
+
+      imageArrays[artist].push(_img);
+    }
+  }
+
+
+  /* Common calback function to check if can call renderGalleryOnDOMLoad() once both artists done */
+  function checkCanRenderGallery()
+  {
+    artistsDone += 1;
+    if (artistsDone == expectedArtistsDone) {
+      var readyDOMStates = ['ready', 'complete', 'interactive'];
+      if (readyDOMStates.includes(document.readyState)) {
+        renderGalleryOnDOMLoad();
+      } else if (document.addEventListener) { 
+        document.addEventListener("DOMContentLoaded", function(event) {
+          renderGalleryOnDOMLoad();
+        });
+      } else if (document.attachEvent) { // IE 8 or older
+        document.attachEvent("onload", function(event) {
+          renderGalleryOnDOMLoad();
+        });
+      } else {
+        debug_log("ERROR: Browser appears to be incompatible and does not support asynchronous events");
+        debug_log("ERROR: Failed to set up calling renderGalleryOnDOMLoad() and render on page");
+      }
+    }
+  }
+
+  /* Render objects on page once artists have been cached and DOM is loaded */
+  function renderGalleryOnDOMLoad()
+  {
+    
+    debug_log("...Artists synced up! Rendering final gallery...");
+
+    // Mark entire gallery as visible
+    document.getElementById('ScaleMain').style.display = "block";
+
+    for (var artist = 0; artist < artistNames.length; artist++) {
+      // Construct gallery DOM object for artist
+      debug_log("...Forming " + artistNames[artist] + " gallery...");
+      renderArtistGallery(artist);
+
+      // Add painting objects to artist's gallery object
+      debug_log("...Rendering " + artistNames[artist] + " paintings into gallery...");
+      renderPaintings(artist);
+
+      // Add human figure to artist's gallery object
+      debug_log("...Rendering human into galleries...");
+      renderHuman(artist);
+
+      // Load skip buttons between galleries into full gallery scroller
+      debug_log("...Rendering Skip buttons...");
+      renderSkip(artist);
+    }
+    
+    // Form final DOM gallery scroller container
+    renderGalleryScroller();
+
+    debug_log("...Done loading scale gallery. FIN");
+  }
+
+
+  /**
+   *  Rendering functions
+   *  -------------------
+  **/
+
+
+  /* Creates DOM list object for adding painting objects of given artist */
+  function renderArtistGallery(artist)
+  {
+    // Form div container for storing images in
+    galleryObjects[artist] = document.createElement('div');
+    galleryObjects[artist].id = 'ScaleImageList'+artist.toString();
+    galleryObjects[artist].style.width = convertPx(galleryWidth(artist));
+    galleryObjects[artist].style.height = convertPx(screenHeight);
+    galleryObjects[artist].style.float = "left";
+    galleryObjects[artist].style.position = 'absolute';
+    galleryObjects[artist].style.listStyle = "none";
+    //galleryObjects[artist].style.border = redBorder;
+
+  }
+
+
+  /* Loads human at left of gallery for artist */
+  function renderHuman(artist)
+  {
+    var _li = document.createElement('li');
+    var _img = humans[artist];
+    _img.id = "ScaleHuman"+artist.toString();
+    var _cnv = document.createElement('canvas');
+    _cnv.id = "canvas"+_img.id;
+    canvasArrays[artist][_img.id] = _cnv;
+
+    // Update width calculations, whether or not human imgs are loaded
+    if (!_img.complete || _img.naturalWidth == 0) {
+      _img.style.width = convertPx(defaultHumanWidth);
+      _img.style.height = convertPx(defaultHumanWidth);
+      _img.style.maxWidth = convertPx(defaultHumanWidth);
+      _img.style.maxWidth = convertPx(defaultHumanWidth);
+      updateWidth(artist, _img);
+    } else {
+      _img.style.width = convertPx(humanScales[artist] * _img.naturalWidth);
+      _img.style.height = convertPx(humanScales[artist] * _img.naturalHeight);
+      _img.style.maxWidth = convertPx(humanScales[artist] * _img.naturalWidth);
+      _img.style.maxHeight = convertPx(humanScales[artist] * _img.naturalHeight);
+      updateWidth(artist, _img);
+    }
+    
+    _img.onload = function() {
+      debug_log("... ...Human for " + artistNames[artist] + " loaded!");
+
+      // If not yet loaded, when human imgs load, update width calculations
+      this.style.width = convertPx(humanScales[artist] * this.naturalWidth);
+      this.style.height = convertPx(humanScales[artist] * this.naturalHeight);
+      this.style.maxWidth = convertPx(humanScales[artist] * this.naturalWidth);
+      this.style.maxHeight = convertPx(humanScales[artist] * this.naturalHeight);
+      updateWidth(artist, this);
+
+      // Call canvas to draw human onto gallery, clearing any previous contents first
+      var cnv = getCanvas(this);
+      if (cnv) {
+        var ctx = cnv.getContext("2d");
+        ctx.clearRect(0, 0, cnv.width, cnv.height);
+        ctx.drawImage(this, 0, 0, cnv.width, cnv.height);
+      } 
+    }
+
+    // Align and formatting
+    _li.style.position = "absolute";
+    _li.style.bottom = convertPx(0);
+    leftOffset = galleryStart/4;
+    _li.style.height = convertPx(_img.style.height);
+    _li.style.left = convertPx(leftOffset);
+    //_li.style.border = blackBorder;
+
+    // Add to list element
+    _li.appendChild(_img);
+    galleryObjects[artist].appendChild(_li);
+  }
+
+
+  /* Load a skip button at left of gallery for artist */
+  function renderSkip(artist)
+  {
+    // Form skip plaque
+    var _fig = document.createElement('figure');
+    _fig.style.width = convertPx(skipWidth);
+    var _skipPlaque = document.createElement('div');
+    _skipPlaque.id = "skipPlaque"+artist.toString();
+
+    _skipPlaque.style.backgroundColor = plaqueColor;
+    //_skipPlaque.style.boxShadow = "3px 3px 5px";  // Commented out- shadow is white on BrueghelFamily
+
+    var _skip = document.createElement('figcaption');
+    _skip.id = "skipText"+artist.toString();
+    
+    // Customize button based on artist
+    if (artist == pieter) {
+      _skip.innerHTML = " Skip ahead to Jan's Gallery >> ";
+
+      // Add skip functionality
+      _skip.onclick = function(event) {
+        this.style.color = linkColor;
+        document.getElementById("ScaleMain").style.cursor = "auto";
+        scroller = document.getElementById("ScaleScroller");
+        scrollLeftTo(scroller, galleryWidth(pieter), 600);
+      }
+    } else {
+      _skip.innerHTML = " << Skip back to Pieter's Gallery ";
+
+      // Add skip functionality
+      _skip.onclick = function(event) {
+        this.style.color = linkColor;
+        document.getElementById("ScaleMain").style.cursor = "auto";
+        scroller = document.getElementById("ScaleScroller");
+        scrollLeftTo(scroller, -galleryWidth(pieter), 600);
+      }
+    }
+
+    // Formatting
+    _skip.style.color = linkColor;
+    _skip.style.fontSize = "x-small";
+    _skipPlaque.style.textAlign = 'center';
+
+    _skip.onmouseover = function() {
+      this.style.color = linkHoverColor;
+      document.getElementById("ScaleMain").style.cursor = "pointer";
+    }
+    _skip.onmouseout = function() {
+      this.style.color = linkColor;
+      document.getElementById("ScaleMain").style.cursor = "auto";
+    }
+
+    // Layout
+    _fig.style.position = "absolute";
+    _fig.style.top = convertPx(skipGap);
+    leftOffset = galleryStart/4;
+    _fig.style.left = convertPx(leftOffset);
+
+    // Add to gallery
+    _skipPlaque.appendChild(_skip);
+    _fig.appendChild(_skipPlaque);
+    galleryObjects[artist].appendChild(_fig);
+  }
+
+
+  /* Loads paintings (Canvas objects) and plaques onto gallery wall */
+  function renderPaintings(artist)
+  {
+    for (var i = 0; i < imageArrays[artist].length; i++) {
+      // Load framed images and make them clickable
+      var _li = document.createElement('div');
+      var _fig = document.createElement('figure');
+
+      // Fetch image and its canvas from artist's imageArray
+      var _img = imageArrays[artist][i];
+      var _cnv = getCanvas(_img);
+      var imgWidth = Math.max(parsePx(_img.style.width), minPlaqueWidth);
+      var plaqueWidth = Math.min(imgWidth, maxPlaqueWidth);
+      var imgHeight = parsePx(_img.style.height);
+      var imgName = _img.title;
+      var imgPath = _img.getAttribute('id');
+
+      // Form clickable plaque titles
+      _fig.style.width = convertPx(imgWidth);
+      var _titlePlaque = document.createElement('div');
+      _titlePlaque.id = imgName + "'s plaque";
+      _titlePlaque.style.backgroundColor = plaqueColor;
+      // _titlePlaque.style.boxShadow = "3px 3px 5px";  // Commented out- shadow is white on BrueghelFamily
+
+      var _title = document.createElement('figcaption');
+      _title.id = imgPath;
+      _title.innerHTML = imgName;
+      _title.style.color = linkColor;
+      _title.style.fontSize = "xx-small";
+
+      // Plaque title clickable functionality
+      _title.onclick = function(event) {
+        this.style.color = linkColor;
+        document.getElementById("ScaleMain").style.cursor = "auto";
+        window.location.href = this.id;
+      }
+      _title.onmouseover = function() {
+        this.style.color = linkHoverColor;
+        document.getElementById("ScaleMain").style.cursor = "pointer";
+      }
+      _title.onmouseout = function() {
+        this.style.color = linkColor;
+        document.getElementById("ScaleMain").style.cursor = "auto";
+      }
+
+      // Formatting and adding effects to image's canvas container
+      if (_cnv) {
+        // Size canvas same as image
+        var ctx = _cnv.getContext("2d");
+        ctx.canvas.width = _img.style.width;
+        ctx.canvas.height = _img.style.height;
+        _cnv.width = _img.style.width;
+        _cnv.height = _img.style.height;
+
+        // Redraw image after clearing previous contents from resizing
+        ctx.clearRect(0, 0, _cnv.width, _cnv.height);
+        ctx.drawImage(_img, 0, 0, _cnv.width, _cnv.height);
+
+        // Canvas layout
+        _cnv.style.position = 'absolute';
+        _cnv.style.marginLeft = convertPx((imgWidth - (parsePx(_img.style.width)))/2);
+        _cnv.style.verticalAlign = 'middle';
+        _cnv.style.bottom = convertPx(floorGap);
+
+        // Canvas clickable functionality
+        _cnv.onmouseover = function() {
+          this.style.filter = "brightness(50%)";
+          document.getElementById("ScaleMain").style.cursor = "pointer";
+        }
+        _cnv.onmouseout = function() {
+          this.style.filter = "brightness(100%)";
+          document.getElementById("ScaleMain").style.cursor = "auto";
+        }
+        _cnv.onclick = function(event) {
+          this.style.filter = "brightness(100%)";
+          document.getElementById("ScaleMain").style.cursor = "auto";
+          var url_array = this.id.split("canvas");
+          window.location.href = url_array[1];
+        }
+      } else {
+        debug_log("ERROR: Corresponding Canvas object for " + _img.id + " doesn't exist!");
+      }
+      
+
+      // Align and formatting for overall painting-plaque combo
+      _li.style.float = "left";
+      _fig.style.height = convertPx(Math.min(titleHeight + imgHeight, screenHeight));
+      _li.style.width = convertPx(imgWidth);
+      _li.style.height = convertPx(Math.min(titleHeight + imgHeight, screenHeight));
+      _li.style.marginRight = convertPx(2*paintingGap);
+      if (i == 0) {
+        _li.style.marginLeft = convertPx(galleryStart);
+      } 
+
+      // Center align and format the painting title plaque
+      _titlePlaque.style.textAlign = 'center';
+      _titlePlaque.style.position = 'absolute';
+      _titlePlaque.style.marginLeft = convertPx((imgWidth - plaqueWidth)/2);
+      _titlePlaque.style.verticalAlign = 'middle';
+      _titlePlaque.style.top = convertPx(titleGap);
+      _titlePlaque.style.width = convertPx(plaqueWidth);
+
+      // Color object borders for debugging
+      // _li.style.border = blackBorder;
+      // _fig.style.border = blueBorder;
+      // _title.style.border = redBorder;
+      // _img.style.border = redBorder;
+      // _cnv.style.border = greenBorder;
+
+      // Add to list element  
+      debug_log("... ...Img " + imgName + " added to DOM!");  
+      if (_cnv) {
+        _fig.appendChild(_cnv);
+      } 
+      _titlePlaque.appendChild(_title);
+      _fig.appendChild(_titlePlaque);
+      _li.appendChild(_fig);
+      galleryObjects[artist].appendChild(_li);
+
+    }
+  }
+
+
+  /* Renders gallery scroller containing both artists */
+  function renderGalleryScroller()
+  {
+    var main = document.getElementById('ScaleMain');
+
+    // Creates overall scroller and container object for galleries
+    var scroller = document.createElement('div');
+    scroller.id = 'ScaleScroller';
+    scroller.style.position = "relative";
+    scroller.style.width = screenWidth;
+    scroller.style.height = convertPx(screenHeight);
+    scroller.style.overflowX = "scroll";
+    scroller.style.overflowY = "hidden";
+    scroller.style.display = "block";
+
+    // In case user scrolls past galleries, have gallery border background as well
+    scroller.style.backgroundImage = "url('" + borderBG + "')";
+    scroller.style.backgroundSize = "contain";
+    scroller.style.backgroundRepeat = "repeat-x";
+    //scroller.style.border = greenBorder;
+    main.appendChild(scroller);
+
+    var corridor = document.createElement('div');
+    corridor.id = 'ScaleCorridor';
+    corridor.style.position = "relative";
+    corridor.style.listStyle = "none";
+    corridor.style.width = convertPx(totalGalleryWidth());
+    corridor.style.height = convertPx(screenHeight);
+    //corridor.style.border = blackBorder;
+    scroller.appendChild(corridor);
+
+    // Add each artist's gallery to scroller 
+    for (var artist = 0; artist < artistNames.length; artist++) {
+      var galleryObj = document.createElement('div');
+      galleryObj.id = 'ScaleGallery'+artist.toString();
+      galleryObj.appendChild(galleryObjects[artist]);
+      corridor.appendChild(galleryObj);
+
+      // Repeat background horizontally and seamlessly
+      galleryObj.style.backgroundImage = "url('" + galleryBGs[artist] + "')";
+      galleryObj.style.backgroundSize = "contain";
+      galleryObj.style.backgroundRepeat = "repeat-x";
+
+      // Sizing and alignment
+      galleryObj.style.float = "left";
+      galleryObj.style.position = 'absolute';
+      if (artist == jan) {
+        galleryObj.style.marginLeft = galleryWidth(pieter) + galleryBorderWidth;
+      }
+      galleryObj.style.width = convertPx(galleryWidth(artist));
+      galleryObj.style.height = convertPx(screenHeight);
+
+      //galleryObj.style.border = blueBorder;
+      //galleryObjects[artist].style.border = greenBorder;
+    }
+
+    // Add the borderline between artists' galleries
+    var galleryBorder = document.createElement('div');
+    galleryBorder.id = 'ScaleGalleryBorder';
+    galleryBorder.style.backgroundImage = "url('" + borderBG + "')";
+    galleryBorder.style.backgroundSize = "100% 100%";
+    galleryBorder.style.height = convertPx(screenHeight);
+    galleryBorder.style.width = convertPx(galleryBorderWidth);
+    galleryBorder.style.marginLeft = convertPx(galleryWidth(pieter));
+    //galleryBorder.style.border = greenBorder;
+    corridor.appendChild(galleryBorder);
+  }
+
+
+  /**
+   *  Helper functions
+   *  ----------------
+  **/
+
+
+  /* Comparator helper function for sorting paintings based on year */
+  function compareYear(csvObj1, csvObj2) 
+  {
+    year1 = parseInt(csvObj1[year]);
+    year2 = parseInt(csvObj2[year]);
+
+    if (year1 > year2) {
+      return 1;
+    } else if (year1 < year2) {
+      return -1;
+    } else {
+      // Tie-break alphebetically based on painting name
+      name1 = csvObj1[fullTitle];
+      name2 = csvObj2[fullTitle];
+      return name1.localeCompare(name2); // Compares for sort based on country locale alphabetical order
+    }
+  }
+
+
+  /* Helper function to convert ints to pixel CSS strings */
+  function convertPx(num)
+  {
+    return num + "px";
+  }
+
+
+  /* Helper function to convert pixel CSS strings to ints */
+  function parsePx(px)
+  {
+    var strArray = px.split('px');
+    return parseInt(strArray[0]);
+  }
+
+
+  /* Animating scrolling function for skip button */
+  function scrollLeftTo(element, to, duration) 
+  {
+    if (duration <= 0) return;
+    var difference = to - element.scrollLeft;
+    var perTick = difference / duration * 10;
+
+    setTimeout(function() {
+        element.scrollLeft = element.scrollLeft + perTick;
+        if (element.scrollLeft === to) return;
+        scrollLeftTo(element, to, duration - 10);
+    }, 10);
+  }
+
+
+  /* Helper function to dynamically calculate width of an artist's gallery loaded so far */
+  function galleryWidth(artist) 
+  {
+    if (widthArrays[artist].length <= 1) {
+      return defaultGalleryWidth;
+    } else {
+      var sum = 0;
+
+      // Sum up widths of existing painting and human objects
+      for (var key in widthArrays[artist]) {
+        var imgWidth = widthArrays[artist][key];
+        sum += Math.max(imgWidth, minPlaqueWidth);
+        
+        sum += paintingGap;
+        sum += paintingGap;
+      }
+
+      // Add extra spacings for insurance
+      sum += galleryStart;
+      sum += galleryExtend;
+
+      // Add additional space at end of gallery
+      if (artist == artistNames.length - 1) {
+        sum += galleryEnd;
+      }
+      
+      return sum
+    }
+  }
+
+
+  /* Helper function to dynamically calculate total width of all galleries combined */
+  function totalGalleryWidth() 
+  {
+    var total = 0;
+    for (var artist = 0; artist < artistNames.length; artist++) {
+      total += galleryWidth(artist);
+    }
+    total += galleryBorderWidth;
+    total -= 1;   // Get rid of tiny grey 1-pixel leftover
+
+    return total;
+  }
+
+
+  /* Helper function to update width calculations and gallery layout for images already loaded */
+  function updateWidth(artist, img) 
+  {
+
+    // If canvas and container parents corresponding to image exists, update canvas's width and height
+    var cnv = getCanvas(img);
+    if (cnv) {
+      // Obtain updated image width and height
+      var newWidth = parsePx(img.style.width);
+      var newHeight = parsePx(img.style.height);
+      if (img.style.maxWidth) {
+        newWidth = parsePx(img.style.maxWidth);
+      } 
+      if (img.style.maxHeight) {
+        newHeight = parsePx(img.style.maxHeight);
+      }
+
+      // Climb up parent hierarchy to list item in gallery for updating DOM objects' and parents' widths
+      var parent = cnv;
+      var parents = [cnv];
+      while (parent && parent.parentNode && parent.parentNode.id != 'ScaleImageList'+artist.toString()) {
+        parent = parent.parentNode;
+        parents.unshift(parent); // Prepend to parents array
+      }
+
+      // Propogate width updates from parent to child
+      for (var i = 0; i < parents.length; i++) {
+        var currObj = parents[i];
+
+        if (currObj != cnv) {
+          currObj.style.width = convertPx(Math.max(newWidth, minPlaqueWidth));
+          currObj.style.height = convertPx(Math.min(titleHeight + newHeight, screenHeight));
+        } else {
+          // Specific width update for canvases
+          var ctx = cnv.getContext("2d");
+          ctx.canvas.width = convertPx(newWidth);
+          ctx.canvas.height = convertPx(newHeight);
+          cnv.width = newWidth;
+          cnv.height = newHeight;
+          cnv.style.marginLeft = convertPx((Math.max(newWidth, minPlaqueWidth) - newWidth)/2);
+
+          // Redraw image after clearing previous contents from resizing
+          ctx.clearRect(0, 0, cnv.width, cnv.height);
+          ctx.drawImage(img, 0, 0, cnv.width, cnv.height);
+        }
+      }
+    }
+
+    // Update title plaque alignment and width based off image width
+    var plaque = document.getElementById(img.title + "'s plaque");
+    if (plaque) {
+      var imgWidth = Math.max(parsePx(img.style.width), minPlaqueWidth);
+      var plaqueWidth = Math.min(imgWidth, maxPlaqueWidth);
+      plaque.style.width = convertPx(plaqueWidth);
+      plaque.style.marginLeft = convertPx((imgWidth - plaqueWidth)/2);
+    }
+    
+    // Update stored width of image
+    widthArrays[artist][img.id] = parsePx(img.style.width);
+
+    // Recalculate total gallery widths
+    var gallWidth = galleryWidth(artist);
+    var gallWidthPieter = gallWidth;
+    if (artist != pieter) {
+      gallWidthPieter = galleryWidth(pieter);  // Jan needs Pieter's width for position (left offset)
+    }
+    var totalWidth = totalGalleryWidth();
+
+    // If gallery parent objects containing image already exists, update their widths
+    if (galleryObjects[artist]) {
+      galleryObjects[artist].style.width = convertPx(gallWidth);
+
+      if (galleryObjects[artist].parentNode && galleryObjects[artist].parentNode.id != 'ScaleCorridor') {
+        galleryObjects[artist].parentNode.style.width = convertPx(gallWidth);
+        // If Pieter's gallery width is being updated, must update Jan's gallery position (left offset)
+        if (artist == pieter) {
+          galleryObjects[jan].parentNode.style.marginLeft = convertPx(gallWidthPieter + galleryBorderWidth);
+          var galleryBorder = document.getElementById("ScaleGalleryBorder");
+          if (galleryBorder) {
+            galleryBorder.style.marginLeft = convertPx(gallWidthPieter);
+          }
+        }
+      }
+    }
+
+    // If gallery scroller already exists, update its scrollable width
+    var scaleCorridor = document.getElementById('ScaleCorridor');
+    if (scaleCorridor) {  
+      scaleCorridor.style.width = convertPx(totalWidth);
+    }
+
+  }
+
+
+  /* Helper function to fetch corresponding canvas of an image */
+  function getCanvas(img)
+  {
+    // Search DOM first
+    var doc_cnv = document.getElementById("canvas"+img.id);
+    if (doc_cnv) {
+      return doc_cnv;
+    }
+
+    // Search canvasArrays next
+    for (var artist = 0; artist < artistNames.length; artist++) {
+      if (img.id in canvasArrays[artist]) {
+        return canvasArrays[artist][img.id];
+      }
+    } 
+
+    // Search failure
+    debug_log("ERROR: Couldn't find canvas for " + img.id + "!");
+    debug_log("Printing all of canvasArrays:");
+    debug_log(canvasArrays);
+    return undefined;
+  }
+
+
+
+</script> 
+
+</div>

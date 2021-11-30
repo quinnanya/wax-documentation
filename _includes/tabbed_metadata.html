@@ -1,0 +1,34 @@
+<div class="accordion mb-4">
+
+  {% for item in include.meta %}
+    {% if item.value contains 'page.' %}
+      {% assign key = item.value | remove: 'page.' %}
+      {% assign value = page[key] %}
+    {% else %}
+      {% assign value = item.value %}
+    {% endif %}
+
+    {% if key == "bibliography" or key == "exhibition_history" or key == "copies_and_variants" or key == "provenance" or key == "related_works" or key == "curatorial_files" or key == "discussion" %}
+
+      {% if value | strip != '' %}
+
+      <div class="metadata-card">
+        <div class="metadata-card-header p-0" id="{{ key }}-tab">
+          <h5 class="my-0">
+            <button class="tabbed-metadata-heading btn btn-link btn-block text-left dropdown-toggle" type="button" data-toggle="collapse" data-target="#{{ key }}-data" aria-expanded="false" aria-controls="{{ key }}-data">{{ item.label }}</button>
+          </h5>
+        </div>
+
+        <div id="{{ key }}-data" class="collapse" aria-labelledby="{{ key }}-tab" data-parent="#tabbed-metadata">
+          <div class="metadata-card-body">
+            {% assign fieldname = key | append: ".html" %}
+            {% include {{ fieldname }} fieldvalue=value %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+    {% endif %}
+  {% endfor %}
+
+</div>

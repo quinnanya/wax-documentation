@@ -7,14 +7,11 @@
     {% include header.html %}
 
     {% if page.banner %}
-      {% assign b = page.banner %}
-      {% include parallax_image.html collection=b.collection pid=b.pid y=b.y height=b.height image=b.image %}
+      {% include banner.html collection=page.collection %}
     {% endif %}
 
-    <div id='wax-main'>
-      <div id='wax-content' class='wax-inline-container'>
+    <div id="brueghel-main" class="container">
         {{ content }}
-      </div>
     </div>
 
     {% include footer.html %}

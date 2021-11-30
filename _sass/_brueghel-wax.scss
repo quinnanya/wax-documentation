@@ -1,0 +1,646 @@
+@import 'bootstrap';
+
+/*
+
+main body & containers
+
+*/
+
+html, body {
+  margin: 0;
+  padding: 0;
+  color: $text-color;
+  background-color: $bg-color;
+  font-family: $body-font;
+  font-weight: 300;
+  font-display: auto;
+  font-size: 1rem;
+  line-height: 1.3rem;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  word-wrap: break-word;
+}
+
+a {
+  color: $link-color;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  text-decoration: none;
+  color: #fff;
+}
+
+p {
+  max-width: 100%;
+  margin-bottom: $less-margin;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+.page-title {
+  padding: 0;
+}
+
+
+.container-fluid, .container {
+  padding: 0;
+}
+
+.row {
+  margin: 0;
+}
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg, .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
+  padding: 0;
+}
+
+/*
+
+header & nav bar
+
+*/
+
+#brueghel-header {
+  background-color: $head-bg-color;
+  padding-right: $less-margin;
+  padding-left: $less-margin;
+  padding-top: 0.25rem;
+  padding-bottom: 0.5rem;
+  letter-spacing: 0.075rem;
+  .navbar {
+    max-width: $max-width;
+    width: 100%;
+    padding: 0;
+  }
+  #site-title {
+    color: $title-color;
+    font-size: 1.7rem;
+    font-weight: 500;
+    font-family: 'EB Garamond', serif;
+    font-variant: small-caps;
+    margin: 0;
+    padding-left: 0.5rem;
+  }
+  #site-subtitle {
+    color: $title-color;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    margin: 0;
+    padding-left: 0.5rem;
+  }
+  #main-logo {
+    width: 70px;
+  }
+  #othercat-logo {
+    width: 50px;
+  }
+  #othercat-link-text {
+    color: $title-color;
+    font-size: .75em;
+    font-weight: 700;
+    font-family: 'EB Garamond', serif;
+    font-variant: small-caps;
+    padding: 0.5rem;
+    margin: 0;
+  }
+  .navbar-brand {
+    color: $head-bg-color;
+    font-size: 2rem;
+    white-space: normal;
+  }
+  .navbar-brand:hover {
+    color: $head-bg-color;
+  }
+  .navbar-toggler {
+    background-color: $head-bg-color;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  #navmenu-container {
+    max-width: 300px;
+    padding-top: 0.25rem;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    .menu-column {
+      max-width: 200px;
+    }
+  }
+  .navbar-nav {
+    .nav-link, .dropdown-item {
+      color: $menu-link-color;
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: $menu-font;
+      line-height: 0.6;
+      padding: 0.4rem;
+    }
+    .nav-link:hover, .nav-link:active {
+      color: $menu-link-color;
+    }
+    .dropdown-menu {
+      background-color: $head-bg-color;
+      border-color: $bg-color;
+    }
+  }
+}
+
+/* 
+
+Landing Page Stuff 
+
+*/
+
+#landing-page-content {
+  margin-top: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+#about-text {
+  padding-right: $margin;
+}
+
+.object-type-container {
+  position: relative;
+  width: 150px;
+  height: 112px;
+  overflow: hidden;
+  .object-type-image, .object-type-overlay, .object-type-text {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .object-type-overlay {
+    z-index: 1;
+    opacity: 0.7;
+    transition: .5s ease;
+    background-color: $objecttype-color;
+  }
+  .object-type-text {
+    z-index: 5;
+    color: $link-color;
+    text-align: center;
+    font-size: 24px;
+    font-family: $accent-font;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 112px;
+    transition: .5s ease;
+  }
+  .object-type-image img {
+    width: 150;
+    height: 112px;
+  }
+}
+.object-type-container:hover .object-type-overlay {
+  opacity: 0.2;
+}
+.object-type-container:hover .object-type-text {
+  color: #fff;
+}
+
+#banner {
+  background-image: $banner;
+  width: 100vw;
+  height: 40vw;
+  max-height: 400px;
+  min-width: 768px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.browsing-menu {
+  h4 {
+    font-size: 1.1rem;
+    margin-top: 0;
+  }
+  .browsing-menu-list {
+    .browsing-menu-list-item {
+      font-size: 1rem;
+    }
+  }
+}
+
+#object-types {
+  margin-top: $margin;
+  .col {
+    margin-bottom: $margin;
+  }
+}
+
+/*
+
+content section
+
+*/
+
+#brueghel-main {
+  background-color: $bg-color;
+  width: 90vw;
+  max-width: $max-width;
+  margin-top: $super-margin;
+  h1, h2, h3, h4, h5 {
+    margin-bottom: $less-margin;
+    font-family: $heading-font;
+    font-weight: 500;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  h3 {
+    font-size: 1.3rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+  h5 {
+    font-size: 0.8rem;
+  }
+  .footnotes ol {
+    padding-left: 0;
+  }
+  li {
+    font-family: $body-font;
+    font-size: 1rem;
+    line-height: 2rem;
+    max-width: 100%;
+  }
+  .text-page-wrapper {
+    max-width: 600px;
+  }
+}
+
+/* 
+
+Footer 
+
+*/
+
+#brueghel-footer {
+  width: 100vw;
+  padding-bottom: 5rem;
+  padding-top: 3rem;
+  background-color: $darker-bg;
+  col {
+    flex-basis: 0;
+    flex-shrink: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    justify-items: space-between;
+    min-width: 250px;
+  }
+  .footer-title {
+    font-family: $heading-font;
+    padding-bottom: 1em;
+    margin: 0;
+  }
+  .footer-description {
+    font-family: $heading-font;
+    margin: 0;
+    font-size: 1em;
+    line-height: 1.2;
+  }
+  .footer-copyright {
+    margin: $margin 0 $margin 0;
+    font-size: 1em;
+    padding-bottom: 1em;
+    line-height: 1.2;
+  }
+  .footer-links {
+    font-family: $heading-font;
+    margin: 0;
+    padding-bottom: 1em;
+    font-size: 1em;
+    line-height: 1.2;
+    a {
+      
+    }
+  }
+}
+
+/*
+
+item pages (iiif + metadata)
+
+*/
+.item-view {
+  width:           100%;
+  display:         flex;
+  flex-flow:       row wrap;
+  justify-content: space-between;
+  align-items:     flex-start;
+  .item-title {
+    font-variant: small-caps;
+  }
+  .image-viewer {
+    position: relative;
+    text-align: left;
+    background-color: $bg-color;
+    width: 100%;
+    margin: 0 0 $more-margin 0;
+    img {
+      max-width: 100%;
+      max-height: 70vh;
+    }
+    a {
+      color: inherit !important;
+    }
+    li {
+      font-size: 1em !important;
+    }
+  }
+  .biography-fields {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .biography-text {
+    padding-top: $less-margin;
+  }
+}
+.modal-dialog {
+  max-width: 70vw;
+  .modal-content {
+    background-color: $text-color;
+    .modal-header {
+      padding: 0.5rem;
+      border-bottom: none;
+    }
+    .image-modal {
+      margin: auto;
+      padding-top: 0;
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+}
+#main-metadata {
+  padding-right: $margin;
+}
+#tabbed-metadata {
+
+}
+.metadata-block {
+  font-family: $body-font;
+  font-size: 1rem;
+  max-width: 100%;
+  padding: $less-margin;
+  td {
+    vertical-align: top;
+    padding-bottom: 10px;
+  }
+  .label {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+    padding-right: 10px;
+  }
+  .value a {
+    font-weight: 400;
+    letter-spacing: 0.02rem;
+  }
+}
+.metadata-card {
+  @extend .card;
+  background-color: $bg-color;
+  border: none;
+  .metadata-card-header {
+    @extend .card-header;
+    background-color: $bg-color;
+    border-bottom: 0;
+    }
+    .tabbed-metadata-heading {
+    color: $text-color;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0;
+    font-variant: small-caps;
+    text-transform: lowercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+    margin-bottom: 1.2rem;
+    }
+  }
+  .metadata-card-body {
+    @extend .card-body;
+    background-color: $bg-color;
+    border-bottom: 0;
+    font-family: $body-font;
+    font-size: .9rem;
+    padding: 0 !important;
+    margin-bottom: 1.5rem;
+  }
+
+table.provenance {
+  width: 50%;
+  tr td {
+    padding-right: 20px;
+    border-bottom: 0.5px solid $text-color;
+    border-top: 0.5px solid $text-color;
+  }
+}
+
+.related-works-item, .curatorial-files-item, .copies-and-variants-item {
+  padding: 0.7rem;
+  margin: 0 1rem 1rem 0;
+  border-color: $text-color;
+  border-radius: 0.4rem;
+  background-color: $darker-bg;
+  border-width: 0.5px;
+  border-style: solid;
+  width: 15rem;
+  .item-image-container {
+    img {
+      object-position: 50% 20%;
+      object-fit: cover;
+      width: $thumbnail-width-large;
+    }
+  }
+  .item-info {
+    font-size: .9rem;
+    line-height: 1rem;
+    padding-top: .7rem;
+    font-weight: 300;
+    .item-link {
+      font-weight: 500;
+      letter-spacing: 0.02rem;
+      padding-bottom: 0.6rem;
+    }
+    .item-date, .item-dimensions, .item-support, .item-location-collection, .item-birth-death {
+      padding-bottom: 0.3rem;
+    }
+    .item-location-collection {
+      padding-top: 0.3rem;
+      font-style: italic;
+    }
+    .file-type-category {
+      text-transform: lowercase;
+      font-variant: small-caps;
+      font-size: 0.8rem;
+    }
+    .file-type {
+      font-weight: 500;
+      padding-bottom: 0.7rem;
+    }
+    .file-notes {
+      font-size: 0.8rem;
+    }
+  }
+}
+.discussion-item {
+  .discussion-author {
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  .discussion-date {
+    font-style: italic;
+    padding-bottom: 0.5rem;
+  }
+  .discussion-comment {
+    border-bottom: 0.5px solid $text-color;
+    margin-bottom: $less-margin;
+  }
+}
+
+/*
+
+search box
+
+*/
+
+.search-block{
+  margin: $more-margin 0 $more-margin 0;
+  #search{
+    border-style: groove;
+    border-width: 2px;
+    margin-bottom: $more-margin;
+    &:focus {
+        box-shadow: none ;
+        border-color: $bg-color;
+    }
+  }
+  #results {
+    margin: 0;
+    .result {
+      padding: 1em;
+      a {
+        color: $text-color;
+        text-decoration: none;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: nowrap;
+        img {
+          float: left;
+          width: 50px;
+        }
+        p {
+          margin: 0 !important;
+          padding: 0;
+          .title{
+            color: $link-color;
+          }
+        }
+      }
+      &:hover {
+        background-color: $bg-color;
+      }
+    }
+  }
+}
+
+.facet-buttons {
+  .facet {
+    @extend .btn-outline-secondary;
+    color: $text-color;
+    background-color: transparent;
+    background-image: unset;
+    border-color: transparent;
+    margin: 0;
+    padding: 3px;
+    font-size: .9rem;
+    font-family: $body-font;
+    text-align: left;
+    .active {
+      @extend .facet;
+      border-color: transparent;
+      background-color: transparent;
+    }
+  }
+}
+
+/* Browse-By Gallery */
+
+.brueghel-gallery-container {
+  display: flex;
+  align-items: flex-start;
+  .facet-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 0;
+    margin-bottom: 0.75rem;
+  }
+  .brueghel-gallery {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.gallery-item {
+  padding: 0.7rem;
+  margin-right: $margin;
+  margin-bottom: $margin;
+  max-width: 19rem;
+  border-color: $text-color;
+  border-radius: 0.4rem;
+  background-color: $darker-bg;
+  border-width: 0.5px;
+  border-style: solid;
+  .item-image-container {
+    img {
+      object-position: 50% 20%;
+      object-fit: cover;
+      width: $thumbnail-width-small;
+    }
+  }
+  .item-info {
+    font-size: .9rem;
+    line-height: 1rem;
+    padding-left: .7rem;
+    font-weight: 300;
+    .item-link {
+      font-weight: 500;
+      letter-spacing: 0.02rem;
+      padding-bottom: 0.6rem;
+    }
+    .item-date, .item-dimensions, .item-support, .item-location-collection {
+      padding-bottom: 0.3rem;
+    }
+    .item-location-collection {
+      padding-top: 0.3rem;
+      font-style: italic;
+    }
+  }
+}
+#result_count {
+  padding-bottom: 1rem;
+}

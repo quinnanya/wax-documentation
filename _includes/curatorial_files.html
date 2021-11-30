@@ -1,0 +1,15 @@
+{% assign curatorial_files = include.fieldvalue | split: "|" %} 
+
+<div class="d-flex flex-wrap">
+{% for item in curatorial_files %}
+  {% assign file = site.curatorial_files | where: "pid", item %}  
+  <div class="curatorial-files-item"> 
+    <div class="item-image-container">
+      <a href="{{ file[0].fullwidth | absolute_url }}" target="_blank"><img src="/{{ file[0].thumbnail }}"></a>
+    </div>
+    <div class="item-info">
+      {% if file[0].file_type_category %}<div class="file-type-category">{{ file[0].file_type_category }}</div>{% endif %}{% if file[0].file_type %}<div class="file-type">{{ file[0].file_type }}</div>{% endif %}{% if file[0].file_notes %}<div class="file-notes">{{ file[0].file_notes }}</div>{% endif %}
+    </div>
+  </div>
+{% endfor %}
+</div>
