@@ -1060,7 +1060,7 @@ h1#page-title,
 </head>
 
   <body>
-    <time datetime='2021-11-29 21:29'></time>
+    <time datetime='2021-12-01 12:35'></time>
     <!--HEADER-->
 
 
@@ -1166,6 +1166,7 @@ h1#page-title,
   <h2 class='page-title'>Image Investigation Toolkit</h2>
 
 
+
 <div class="text-page-wrapper">
 
   <header>
@@ -1239,15 +1240,15 @@ h1#page-title,
         <input type="button" class="iit-button" name="ol_close" id="ol_close" value="Close"/>
       </p>
       <div id="ol_i1" class="ol_image">
-        <a href="" class="zoom two_up">
-          <img class="two_up_image" src="" style="float: left;"/>
+        <a href="{{=img1src}}" class="zoom two_up">
+          <img class="two_up_image" src="{{=img1src}}" style="float: left;"/>
           <div class="crosshair-vertical"/>
           <div class="crosshair-horizontal"/>
         </a>
       </div>
         <div id="ol_i2" class="ol_image">
-          <a href="" class="zoom two_up">
-            <img class="two_up_image" src="" style="float: left;"/>
+          <a href="{{=img2src}}" class="zoom two_up">
+            <img class="two_up_image" src="{{=img2src}}" style="float: left;"/>
             <div class="crosshair-vertical"/>
             <div class="crosshair-horizontal"/>
           </a>
@@ -1269,10 +1270,10 @@ h1#page-title,
       </div>
       <div style="clear:both"></div>
       <div id="ol_i1" class="iit-image-holder">
-        <img src="../" id="crop_target"/>
+        <img src="../{{=img1src}}" id="crop_target"/>
       </div>
       <div id="ol_i2" class="iit-image-holder">
-        <img src="../"/>
+        <img src="../{{=img2src}}"/>
       </div>
     </div>
     <div id=results></div>
@@ -1302,6 +1303,7 @@ h1#page-title,
   <script type="text/javascript" src="../assets/js/dropzones.js?"></script>
 
 </div>
+
 
     </div>
 
